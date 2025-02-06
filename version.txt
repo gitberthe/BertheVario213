@@ -1,0 +1,2 @@
+le 20250206a :
+ - definition materielle d'un BertheVario ecran 2.13 pouces en cours.
