@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-/// \file CScreen154.cpp
+/// \file CScreen213.cpp
 ///
 /// \brief
 ///
@@ -49,7 +49,7 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Initialise l'ecran.
-void CScreen154::InitScreen()
+void CScreen213::InitScreen()
 {
 // init ecran
 //display.init(115200); // default 10ms reset pulse, e.g. for bare panels with DESPI-C02
@@ -99,7 +99,7 @@ ScreenRaz() ;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Raz de l'ecran qui fonctionne bien.
-void CScreen154::ScreenRaz()
+void CScreen213::ScreenRaz()
 {
 g_GlobalVar.RazBoutons() ;
 
@@ -146,7 +146,7 @@ delete [] bitmap ; */
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Raz screen en reboot
-void CScreen154::ScreenOff()
+void CScreen213::ScreenOff()
 {
 //display.setFullWindow() ;
 
@@ -169,7 +169,7 @@ display.powerOff();
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Affichage de "Connect to Wifi".
-void CScreen154::AfficheConnectWifi()
+void CScreen213::AfficheConnectWifi()
 {
 display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
 
@@ -183,7 +183,7 @@ display.display(true);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Affichage de la calibration magnetique.
-void CScreen154::AfficheCalibreMag()
+void CScreen213::AfficheCalibreMag()
 {
 display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
 
@@ -197,7 +197,7 @@ display.display(true);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Affichage de l'adresse ip.
-void CScreen154::AfficheWifi(char * IpAdress)
+void CScreen213::AfficheWifi(char * IpAdress)
 {
 display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
 
@@ -213,7 +213,7 @@ display.display(true);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche le voltage batterie.
-void CScreen154::AfficheVoltage()
+void CScreen213::AfficheVoltage()
 {
 float Voltage = g_GlobalVar.GetVoltage() ;
 
@@ -237,7 +237,7 @@ display.display(true);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche les boutons de calibration/wifi/rando.
-void CScreen154::AfficheBoutons()
+void CScreen213::AfficheBoutons()
 {
 display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
 
@@ -256,7 +256,7 @@ display.display(true);
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche un rectangle plein
-void CScreen154::DoRect(int x, int y, int w, int h )
+void CScreen213::DoRect(int x, int y, int w, int h )
 {
 //auto Color = (Black) ? GxEPD_BLACK : GxEPD_WHITE ;
 display.fillRect(x, y, w, h, GxEPD_BLACK ); // x y w h
@@ -264,7 +264,7 @@ display.fillRect(x, y, w, h, GxEPD_BLACK ); // x y w h
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche un rectangle plein
-void CScreen154::DoChar(int x, int y, const char * pChar , bool disp )
+void CScreen213::DoChar(int x, int y, const char * pChar , bool disp )
 {
 //auto Color = (Black) ? GxEPD_BLACK : GxEPD_WHITE ;
 //display.fillRect(x, y, w, h, Color ); // x y w h
@@ -278,7 +278,7 @@ if ( disp )
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche les informations de l'ecran 0.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranVz()
+CGestEcrans::EtatsAuto CScreen213::EcranVz()
 {
 //CLocTermic LocTermic ;
 
@@ -663,7 +663,7 @@ return ECRAN_0_Vz ;
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche les informations de l'ecran 1. Historique de vol.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranHisto()
+CGestEcrans::EtatsAuto CScreen213::EcranHisto()
 {
 char * pCharNomFch = NULL ;
 static int ivol = 0 ;
@@ -837,7 +837,7 @@ return ECRAN_1_Histo ;
 /// \brief Cette fonction affiche/modifie les [variables] du fichier de
 /// configuration.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranCfgFch()
+CGestEcrans::EtatsAuto CScreen213::EcranCfgFch()
 {
 static char TmpMod[100] = {0} ;
 std::string Name ;
@@ -996,7 +996,7 @@ return ECRAN_4_CfgFch ;
 /// \brief Cette fonction affiche les informations de l'ecran 2b, TAM/CTR
 /// modification activation.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranTmaMod()
+CGestEcrans::EtatsAuto CScreen213::EcranTmaMod()
 {
 static int NumTmaCtr = 0 ;
 
@@ -1165,7 +1165,7 @@ return ECRAN_3b_TmaMod ;
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche les informations de l'ecran 2a, TAM/CTR titre
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranTmaAll()
+CGestEcrans::EtatsAuto CScreen213::EcranTmaAll()
 {
 // tri par nom
 g_GlobalVar.m_ZonesAerAll.TriZonesNom() ;
@@ -1265,7 +1265,7 @@ return ECRAN_3a_TmaAll ;
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche les informations des fichiers IGC de la carte
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranListeIgcFch()
+CGestEcrans::EtatsAuto CScreen213::EcranListeIgcFch()
 {
 static std::vector<std::string> VecNomIgc ;
 static std::vector<float> VecTempsIgc ;
@@ -1344,7 +1344,7 @@ return ECRAN_2a_ListeIgc ;
 /// sont à la racine et ayant un fichier histo.
 /// Les autres petits fichiers sont detruits.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranConfimeArchIgcFch()
+CGestEcrans::EtatsAuto CScreen213::EcranConfimeArchIgcFch()
 {
 // titre
 char TmpChar[] = "\n\n   Confirme\n   Archivage\n     Igc\n  Bouton GD" ;
@@ -1404,7 +1404,7 @@ return ECRAN_2b_ConfirmArchIgc ;
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction permet de connaitre la TMA dessus.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranTmaDessous()
+CGestEcrans::EtatsAuto CScreen213::EcranTmaDessous()
 {
 static int NbAppButGD = 0 ;
 std::string NomZone = "" ;
@@ -1530,7 +1530,7 @@ return ECRAN_5_TmaDessous ;
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Cette fonction affiche les informations de l'ecran sys, orienté systeme.
 /// \return l'etat suivant de l'automate
-CGestEcrans::EtatsAuto CScreen154::EcranSys()
+CGestEcrans::EtatsAuto CScreen213::EcranSys()
 {
 // date
 char TmpCharDate[35] ;
@@ -1633,7 +1633,7 @@ return ECRAN_6_Sys ;
 
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief Affichage de l'ecran rando-vol dans ses etats successifs
-void CScreen154::EcranRandoVol()
+void CScreen213::EcranRandoVol()
 {
 // si inuit rando
 if ( g_GlobalVar.m_EtatRando == CRandoVol::InitRando )

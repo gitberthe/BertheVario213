@@ -4,11 +4,12 @@
 /// \brief
 ///
 /// \date creation     : 30/01/2025
-/// \date modification : 03/02/2025
+/// \date modification : 13/02/2025
 ///
 
 #include "../BertheVario213.h"
 
+#ifdef XC_TRACK
 CBleXctServerCallbacks varioBleServerCallbacks ;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -113,3 +114,5 @@ for (checksum = 0, ai = 1; ai < Len ; ai++)
     }
 return checksum ;
 }
+
+#endif

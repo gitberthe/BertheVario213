@@ -19,7 +19,6 @@
 #include <FS.h>
 #include <MS5611.h>
 #include <MPU9250.h>
-#include <NimBLEDevice.h>
 
 #include <ESPFMfGK.h>
 
@@ -33,7 +32,8 @@
 
 //#define VARIO_CAP_MAG_A_PLAT  2 ///< si vario cap magnetique a plat 1 , ou sur suspente droite 2 , ou sur suspente gauche 3
 #define VARIO_CAP_MAG_A_PLAT  1
-#define XC_TRACK                ///< si besoin de memoire et pas de xc_track desactiver (40ko de gagner)
+//#define XC_TRACK                ///< si besoin de memoire et pas de xc_track desactiver (40ko de gagner)
+                                ///< dans le platformio.ini : lib_deps = h2zero/NimBLE-Arduino@^2.2.1
 
 ////////////////////////////////////
 // platform de la version precedente
@@ -68,6 +68,11 @@
 #define SPEAKER_PIN         25
 #define VOLTAGE_DIVISOR_PIN 35
 
+// boutons
+#define BUTTON_A_PIN 38
+#define BUTTON_B_PIN 37
+#define BUTTON_C_PIN 39
+
 //#define VARIO_TW_FREQ   400000UL
 //#define VARIOMETER_POWER_ON_DELAY   2000
 
@@ -85,11 +90,6 @@
 #define MS5611_ADDRESS          (0x77)
 
 #define MPU_STATIC_ADDRESS      (0x68)
-
-// boutons
-#define BUTTON_A_PIN 38
-#define BUTTON_B_PIN 37
-#define BUTTON_C_PIN 39
 
 // SDCARD
 #define SDCARD_CS_PIN   13
@@ -122,6 +122,9 @@
 ////////////////////
 // include locaux //
 ////////////////////
+#ifdef XC_TRACK
+ #include <NimBLEDevice.h>
+#endif
 #include "GlobalVar/CMutex.h"
 #include "Gps/CTrame.h"
 #include "Gps/CIgc.h"
@@ -131,7 +134,7 @@
 #include "Gps/CHgt2Agl.h"
 #include "Screen/CBoutons.h"
 #include "Screen/CGestEcrans.h"
-#include "Screen/CScreen154.h"
+#include "Screen/CScreen213.h"
 #include "Screen/CLocTermic.h"
 #include "VarioBeep/CSoundSvr.h"
 #include "VarioBeep/CVarioBeep.h"
@@ -141,12 +144,11 @@
 #include "Gps/CPileVit.h"
 #include "MS5611/CMS5611.h"
 #include "MPU9250/CMpu9250.h"
-//#include "WebBrowser/CWebBrowser.h"
-/*extern "C" {
+/*
+extern "C" {
 #include "Neural/SNNS_NET.h"
 }
-#include "Neural/CNeuralTermic.h"*/
-//#include "Calculateur/CThermicMap.h"
+*/
 #include "Calculateur/CSortArray.h"
 #include "Calculateur/CTerrainsConnu.h"
 #include "GlobalVar/CFileHistoVol.h"
@@ -170,7 +172,9 @@
 #include "FileMgr/FileMgr.h"
 #include "RandoVol/CFileGpx.h"
 #include "RandoVol/CRandoVol.h"
-#include "Bluetooth/CBleXct.h"
+#ifdef XC_TRACK
+ #include "Bluetooth/CBleXct.h"
+#endif
 
 ///////////////////////////
 // taches plus affichage //

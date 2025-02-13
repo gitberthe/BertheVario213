@@ -116,10 +116,12 @@ if ( false )
     {
     g_GlobalVar.m_Config.LectureFichier() ;
 
+    #ifdef XC_TRACK
     // desactive ble
     g_GlobalVar.m_Config.m_xc_track = false ;
     esp_bt_controller_disable();
     esp_bt_controller_deinit();
+    #endif
 
     // mode ftp pour loop
     g_GlobalVar.m_ModeHttp = true ;
@@ -226,11 +228,11 @@ perfmon_start() ;
 if ( g_GlobalVar.m_Config.m_xc_track )
     g_GlobalVar.m_BleXct.Init( BLE_NAME ) ;
 else
-#endif
     {
     esp_bt_controller_disable();
     esp_bt_controller_deinit();
     }
+#endif
 
 #ifdef _LG_DEBUG_
   Serial.println("setup done");

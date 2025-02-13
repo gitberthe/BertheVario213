@@ -103,8 +103,8 @@
 		<Unit filename="../BertheVario213PlatformIO/src/Screen/CGestEcrans.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Screen/CLocTermic.cpp" />
 		<Unit filename="../BertheVario213PlatformIO/src/Screen/CLocTermic.h" />
-		<Unit filename="../BertheVario213PlatformIO/src/Screen/CScreen154.cpp" />
-		<Unit filename="../BertheVario213PlatformIO/src/Screen/CScreen154.h" />
+		<Unit filename="../BertheVario213PlatformIO/src/Screen/CScreen213.cpp" />
+		<Unit filename="../BertheVario213PlatformIO/src/Screen/CScreen213.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Screen/GxEPD2_display_selection.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Screen/GxEPD2_display_selection_added.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Screen/GxEPD2_display_selection_new_style.h" />

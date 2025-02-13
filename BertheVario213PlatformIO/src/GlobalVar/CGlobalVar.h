@@ -15,7 +15,7 @@ class CSimuVol ;
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief Variable globale du projet. Contient CConfigFile m_Config, CMS5611 m_MS5611
 /// , CMpu9250 m_Mpu9250, CZonesAerAll m_ZonesAer et CHgt2Agl m_Hgt2Agl.
-class CGlobalVar : public CGps, public CScreen154, public CVarioBeep, public CSDCard, public CNumTaskArr, public CFinSol , public CSoundSvr , public CRandoVol
+class CGlobalVar : public CGps, public CScreen213, public CVarioBeep, public CSDCard, public CNumTaskArr, public CFinSol , public CSoundSvr , public CRandoVol
 {
 public :
     CGlobalVar() ;
@@ -30,7 +30,9 @@ public :
     CZonesFchValid  m_ZonesAerAll ;///< tableau des zones aeriennes pris en compte
     CHgt2Agl    m_Hgt2Agl ; ///< pour determiner la hauteur sol
     CPileVit    m_PileVit ; ///< pour lancement vol suivant la vitesse gps
-    CBleXct     m_BleXct ;  ///< bluetooth Xc-Track
+    #ifdef XC_TRACK
+     CBleXct     m_BleXct ;  ///< bluetooth Xc-Track
+    #endif
 
     bool m_ModeHttp ;                   ///< si mode http wifi
     bool m_ModeRandoVol ;               ///< si mode rando-vol

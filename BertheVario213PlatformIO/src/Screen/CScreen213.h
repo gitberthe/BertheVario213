@@ -1,10 +1,10 @@
 ////////////////////////////////////////////////////////////////////////////////
-/// \file CScreen154.h
+/// \file CScreen213.h
 ///
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 02/02/2025
+/// \date modification : 13/02/2025
 ///
 
 #ifndef _SCREEN154_
@@ -13,7 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief Permet l'affichage de differentes pages d'ecrans et messages.
 /// Les includes dans CSreen.cpp permetent de selectionner les differents ecrans materiel.
-class CScreen154 : public CGestEcrans
+class CScreen213 : public CGestEcrans
 {
 public :
     void InitScreen() ;
