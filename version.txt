@@ -8,6 +8,5 @@ le 20250213a :
    alimentation, pcb, boitier.
  - l'ecran est tres propre et assez rapide 1/2 image/s.
   
-
 le 20250206a :
  - definition materielle d'un BertheVario ecran 2.13 pouces en cours.
