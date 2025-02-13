@@ -1,5 +1,5 @@
 le 20250213a :
- - reception de la lilygo T5 v2.3.1  GDEM0213T5BN 9102 chip ecran DEPG0213BN :
+ - reception de la lilygo T5 v2.3.1 GDEM0213T5BN 9102 chip ecran DEPG0213BN :
   . test ecran ok.
   . test carte SD ok.
   . test wifi ok.
