@@ -5,7 +5,7 @@ le 20250213a :
   . test wifi ok.
   . test ble ok.
  - reste plus qu'a faire tout le reste... gps, boutons, capteur pression, cap magnetique, 
-  alimentation, pcb, boitier.
+   alimentation, pcb, boitier.
  - l'ecran est tres propre et assez rapide 1/2 image/s.
   
 
