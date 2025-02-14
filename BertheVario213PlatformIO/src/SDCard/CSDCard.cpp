@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 04/03/2024
-/// \date modification : 21/01/2025
+/// \date modification : 13/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -26,8 +26,9 @@ if ( !SD.begin(SDCARD_CS_PIN, SpiSdCard) )
     #endif
 
     #ifndef MS5611_DEBUG
-     CGlobalVar::Reboot() ;
+     //CGlobalVar::Reboot() ;
     #endif
+     CGlobalVar::BeepError( false ) ;
     }
 delay( 100 ) ;
 }

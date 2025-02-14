@@ -10,6 +10,9 @@
 #ifndef _SCREEN154_
 #define _SCREEN154_
 
+#define HAUTEUR_213  (250)
+#define LARGEUR_213  (122)
+
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief Permet l'affichage de differentes pages d'ecrans et messages.
 /// Les includes dans CSreen.cpp permetent de selectionner les differents ecrans materiel.

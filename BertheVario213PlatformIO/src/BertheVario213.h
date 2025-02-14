@@ -73,12 +73,6 @@
 #define BUTTON_B_PIN 37
 #define BUTTON_C_PIN 39
 
-//#define VARIO_TW_FREQ   400000UL
-//#define VARIOMETER_POWER_ON_DELAY   2000
-
-// Sound
-//#define PIN_AUDIO_AMP_ENA     12                        //Enabled ampli class D
-
 // GPS
 #define pinGpsRXD  (33)
 #define pinGpsTXD  (-1)

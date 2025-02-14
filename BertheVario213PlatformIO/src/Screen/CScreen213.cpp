@@ -31,6 +31,11 @@
 #include <Fonts/FreeMonoBold18pt7b.h>
 #include <Fonts/FreeMonoBold24pt7b.h>
 
+#include <Fonts/FreeSans9pt7b.h>
+#include <Fonts/FreeSans12pt7b.h>
+#include <Fonts/FreeSans18pt7b.h>
+#include <Fonts/FreeSans24pt7b.h>
+
 // note 16.11.2019: the compiler may exclude code based on constant if statements (display.epd2.panel == constant),
 //                  therefore bitmaps may get optimized out by the linker
 
@@ -83,7 +88,7 @@ display.display(true);*/
 //display.hibernate();
 //display.powerOff();
 display.setRotation(0) ;
-//display.setFullWindow() ;
+display.setFullWindow() ;
 
 // raz page precedente
 //display.fillRect(0,0, 200, 200, GxEPD_BLACK ); // x y w h
@@ -92,9 +97,13 @@ display.setRotation(0) ;
 //display.display(false) ;
 //delay(SCREEN_DELAY) ;
 
-display.setPartialWindow( 0, 0, 200 , 200 );
+//display.setPartialWindow( 0, 0, LARGEUR_213 , HAUTEUR_213 );
+//display.setPartialWindow( 0, 0, LARGEUR_213 , HAUTEUR_213 );
 
 ScreenRaz() ;
+
+g_GlobalVar.m_TerrainPosCur.m_AltiBaro = 9999 ;
+g_GlobalVar.m_VitesseKmh = 99.9 ;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -109,9 +118,9 @@ g_GlobalVar.m_StopLoop = true ;
     {
     display.setCursor( 0 , 0 ) ;
     display.print( "" );
-    display.fillRect(0,0, 200, 200, GxEPD_BLACK ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_BLACK ); // x y w h
     display.display(true) ;
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.display(true) ;
     }
 /*else
@@ -239,17 +248,17 @@ display.display(true);
 /// \brief Cette fonction affiche les boutons de calibration/wifi/rando.
 void CScreen213::AfficheBoutons()
 {
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
-display.setFont(&FreeMonoBold24pt7b);
+display.setFont(&FreeSans18pt7b);
 display.setCursor(10, 55);
-display.print("Berthe\n Vario");
+display.print("Berthe\n  Vario\n   213");
 
-// boutons
+/*// boutons
 display.setFont(&FreeMonoBold18pt7b);
 display.setCursor(0, 155);
 display.println("B       B");
-display.print("C   W   R");
+display.print("C   W   R"); */
 
 display.display(true);
 }
@@ -417,7 +426,7 @@ g_GlobalVar.m_ZonesAerAll.m_Mutex.PrendreMutex() ;
 g_GlobalVar.m_ZonesAerAll.m_Mutex.RelacherMutex() ;
 
 // raz page precedente
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // affichage valeur de VZ
 int16_t tbx, tby;
@@ -427,15 +436,15 @@ uint16_t tbw, tbh;
 // nom de zone aerienne ou termique/terrain
 if ( g_GlobalVar.m_Hgt2Agl.m_ErreurFichier )
     {
-    display.setFont(&FreeMonoBold12pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.setCursor(0, 15);
-    display.print("*** ERREUR *** * FICHIER HGT*");
+    display.print("** ERREUR  **\nFICHIER HGT");
     if ( g_GlobalVar.m_BeepAttenteGVZone )
         CGlobalVar::BeepError(true) ;
     }
 else if ( DansUneZone == ZONE_DEDANS )
     {
-    display.setFont(&FreeMonoBold12pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.setCursor(0, 15);
     display.print(NomZoneDessous.c_str());
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -447,7 +456,7 @@ else if ( DansUneZone == ZONE_DEDANS )
     }
 else if ( LimiteZone == ZONE_LIMITE_ALTI )
     {
-    display.setFont(&FreeMonoBold12pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.setCursor(0, 15);
     display.print(NomZoneDessous.c_str());
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -455,7 +464,7 @@ else if ( LimiteZone == ZONE_LIMITE_ALTI )
     }
 else if ( LimiteZone == ZONE_LIMITE_FRONTIERE )
     {
-    display.setFont(&FreeMonoBold12pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.setCursor(0, 15);
     display.print(NomZoneLimite.c_str());
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -600,27 +609,27 @@ else
 /////////////
 // bandeaux 4
 // alti
-display.drawLine( 0 , 163 , 200 , 163 , GxEPD_BLACK ) ;
-display.setFont(&FreeMonoBold18pt7b);
-display.setCursor(0, 195);
+//display.drawLine( 0 , 163 , 200 , 163 , GxEPD_BLACK ) ;
+display.setFont(&FreeSans18pt7b);
+display.setCursor(0, 202 );
 display.print(TmpCharAlt);
-display.setFont(&FreeMonoBold9pt7b);
+display.setFont(&FreeSans9pt7b);
 display.print("m");
 
 // vitesse sol/hauteur sol
-display.setFont(&FreeMonoBold18pt7b);
-display.setCursor(102, 195);
-display.drawLine( 100 ,200 ,100 , 163 , GxEPD_BLACK ) ;
+display.setFont(&FreeSans18pt7b);
+//display.setCursor(102, 195);
+//display.drawLine( 100 ,200 ,100 , 163 , GxEPD_BLACK ) ;
 if ( AffichageHauteurSol )
     {
     display.print(TmpCharVitSol);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.print("k");
     }
 else
     {
     display.print(TmpCharHauteurSol);
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.print("m");
     }
 

@@ -56,7 +56,7 @@ Serial.println("Setup") ;
 g_GlobalVar.InitScreen() ;
 
 // affichage boutons
-//g_GlobalVar.AfficheBoutons() ;
+g_GlobalVar.AfficheBoutons() ;
 
 // init boutons
 //g_GlobalVar.InitButton() ;
