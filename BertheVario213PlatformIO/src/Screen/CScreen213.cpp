@@ -599,15 +599,9 @@ if ( SigneNeg )
 
 /////////////
 // bandeaux 5
-// alti
-display.setFont(&FreeSans18pt7b);
-display.setCursor(20, 215 );
-display.print(TmpCharAlt);
-display.setFont(&FreeSans9pt7b);
-display.print("m");
 
 // vitesse sol/hauteur sol
-display.setCursor(20, 250 );
+display.setCursor(20, 215 );
 display.setFont(&FreeSans18pt7b);
 if ( AffichageHauteurSol )
     {
@@ -621,6 +615,16 @@ else
     display.setFont(&FreeSans9pt7b);
     display.print("m");
     }
+
+/////////////
+// bandeaux 6
+
+// alti
+display.setFont(&FreeSans18pt7b);
+display.setCursor(20, 250 );
+display.print(TmpCharAlt);
+display.setFont(&FreeSans9pt7b);
+display.print("m");
 
 // affichage nouvelle page
 display.display(true) ;
