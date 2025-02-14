@@ -1,3 +1,6 @@
+le 20250213c :
+ - taille ecran
+
 le 20250213b :
  - reorganisation code
 
