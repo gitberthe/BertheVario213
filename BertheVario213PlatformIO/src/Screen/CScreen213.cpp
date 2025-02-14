@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 13/02/2025
+/// \date modification : 14/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -104,6 +104,9 @@ ScreenRaz() ;
 
 g_GlobalVar.m_TerrainPosCur.m_AltiBaro = 9999 ;
 g_GlobalVar.m_VitesseKmh = 99.9 ;
+g_GlobalVar.m_CapGpsDeg  = 300 ;
+g_GlobalVar.m_ZonesAerAll.m_DistXYNextZone = 999 ;
+g_GlobalVar.m_ZonesAerAll.m_DistAltCurZone = 499 ;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -328,7 +331,6 @@ else
         sprintf( TmpCharFin , "  -" ) ;
     }
 
-
 // altitude barometrique
 char TmpCharAlt[15] ;
 sprintf( TmpCharAlt , "%4d", (int)g_GlobalVar.m_TerrainPosCur.m_AltiBaro ) ;
@@ -339,7 +341,7 @@ float DeriveAngle = g_GlobalVar.GetDeriveDeg() ;
 char TmpCharAngleDerive[15] ;
 if ( fabsf(DeriveAngle) >= 90. )
     {
-    sprintf( TmpCharAngleDerive , " \\R/" ) ;
+    sprintf( TmpCharAngleDerive , "\\R/" ) ;
     // alarme sonore
     if ( g_GlobalVar.m_BeepAttenteGVZone && g_GlobalVar.m_Config.m_alarme_reculade && g_GlobalVar.m_FinDeVol.IsInFlight() )
         {
@@ -349,15 +351,15 @@ if ( fabsf(DeriveAngle) >= 90. )
         }
     }
 else if ( DeriveAngle >= DeriveMilieu )
-    sprintf( TmpCharAngleDerive , "  %1d>>", ((int)(fabsf(DeriveAngle)/10)) ) ;
+    sprintf( TmpCharAngleDerive , " %1d>", ((int)(fabsf(DeriveAngle)/10)) ) ;
 else if ( DeriveAngle <= -DeriveMilieu )
-    sprintf( TmpCharAngleDerive , "<<%1d", ((int)(fabsf(DeriveAngle)/10)) ) ;
+    sprintf( TmpCharAngleDerive , "<%1d", ((int)(fabsf(DeriveAngle)/10)) ) ;
 else
-    sprintf( TmpCharAngleDerive , " ^%1d^", ((int)(fabsf(DeriveAngle)/10)) ) ;
+    sprintf( TmpCharAngleDerive , "^%1d^", ((int)(fabsf(DeriveAngle)/10)) ) ;
 
 // vitesse sol
 char TmpCharVitSol[15] ;
-sprintf( TmpCharVitSol , "%4.1f", g_GlobalVar.m_VitesseKmh ) ;
+sprintf( TmpCharVitSol , "%5.1f", g_GlobalVar.m_VitesseKmh ) ;
 
 // hauteur sol
 char TmpCharHauteurSol[15] ;
@@ -399,12 +401,12 @@ sprintf( TmpCharCap , "%2d", (int)(Cap/10) ) ;
 // nom/finesse du site le plus proche
 float FinesseTerrainMinimum = 99. ;
 const CLocTerrain * pTerrain = g_GlobalVar.m_TerrainArr.GetTerrainProche( FinesseTerrainMinimum ) ;
-char TmpCharNomSite[15] = "----------" ;
+char TmpCharNomSite[17] = "------------" ;
 if ( pTerrain != NULL )
     {
     int inspp = 0 ;
     // recopie nom de terrain
-    for ( ; inspp < 10 && inspp < pTerrain->m_Nom.length() ; inspp++ )
+    for ( ; inspp < 13 && inspp < pTerrain->m_Nom.length() ; inspp++ )
         TmpCharNomSite[inspp] = pTerrain->m_Nom[inspp] ;
     TmpCharNomSite[inspp] = 0 ;
     }
@@ -414,7 +416,7 @@ char TmpCharFinesseSite[5] ;
 sprintf( TmpCharFinesseSite , "%2d" , (int)FinesseTerrainMinimum ) ;
 
 // zone aerienne
-static int AffTerrainFront = 0 ;
+//static int AffTerrainFront = 0 ;
 g_GlobalVar.m_ZonesAerAll.m_Mutex.PrendreMutex() ;
  std::string NomZoneDessous = g_GlobalVar.m_ZonesAerAll.m_NomZoneDansDessous ;
  int DansUneZone            = g_GlobalVar.m_ZonesAerAll.m_DansDessousUneZone ;
@@ -427,6 +429,15 @@ g_GlobalVar.m_ZonesAerAll.m_Mutex.RelacherMutex() ;
 
 // raz page precedente
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+int yh = 87 ;
+display.drawLine( 30 , yh , LARGEUR_213 - 30 , yh , GxEPD_BLACK ) ;
+yh = 124 ;
+display.drawLine( LARGEUR_213/2 - 2, yh , LARGEUR_213/2 -3 , 87 , GxEPD_BLACK ) ;
+display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
+yh = 180 ;
+display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
+yh = 220 ;
+display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
 
 // affichage valeur de VZ
 int16_t tbx, tby;
@@ -472,66 +483,70 @@ else if ( LimiteZone == ZONE_LIMITE_FRONTIERE )
     }
 else
     {
+    int yh = 22 ;
+    display.drawLine(  5 , yh , 50 , yh , GxEPD_BLACK ) ;
+    display.drawLine( 60 , yh , 110 , yh , GxEPD_BLACK ) ;
+    yh = 50 ;
+    display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
+
     /////////////
     // bandeaux 1
     // terrain finesse
-    const int y1 = 30 ;
-    if ( (AffTerrainFront++/3)%2 )
-        {
-        display.setFont(&FreeMonoBold12pt7b);
-        display.setCursor(0, y1);
-        display.print(TmpCharNomSite);
-        display.setFont(&FreeMonoBold18pt7b);
-        display.setCursor(155, y1);
-        display.print(TmpCharFinesseSite);
-        }
+    const int y1 = 16 ;
+    const int y2 = 45 ;
+
+    display.setFont(&FreeSans12pt7b);
+    display.setCursor(0, y1);
+    display.print(TmpCharNomSite);
+    display.setFont(&FreeSans12pt7b);
+    display.setCursor(96, y1);
+    display.print(TmpCharFinesseSite);
+
     // dist/alt/cap frontiere zone
+    display.setCursor(4, y2);
+    char TmpCharFront[25] ;
+    char TmpCharCap[25] ;
+    GetCapChar( CapFrontDeg , TmpCharCap ) ;
+    // altitude frontiere
+    if ( AltFront > 500 )
+        {
+        display.setFont(&FreeSans12pt7b);
+        //            "500"
+        display.print("   ");
+        display.setFont(&FreeSans9pt7b);
+        //            "A "
+        display.print("  ");
+        }
     else
         {
-        display.setCursor(2, y1);
-        char TmpCharFront[25] ;
-        char TmpCharCap[25] ;
-        GetCapChar( CapFrontDeg , TmpCharCap ) ;
-        // altitude frontiere
-        if ( AltFront > 500 )
-            {
-            display.setFont(&FreeMonoBold18pt7b);
-            //            "500"
-            display.print("   ");
-            display.setFont(&FreeMonoBold12pt7b);
-            //            "A "
-            display.print("  ");
-            }
-        else
-            {
-            display.setFont(&FreeMonoBold18pt7b);
-            sprintf( TmpCharFront , "%3d", AltFront ) ;
-            display.print(TmpCharFront);
-            display.setFont(&FreeMonoBold12pt7b);
-            display.print("A ");
-            }
-        // distance frontiere < DISTANCE_PROCHE_XY
-        if ( DistFront > 999 )
-            {
-            display.setFont(&FreeMonoBold18pt7b);
-            //            "999SE"
-            display.print("     ");
-            }
-        else
-            {
-            display.setFont(&FreeMonoBold18pt7b);
-            sprintf( TmpCharFront , "%3d%s", DistFront , TmpCharCap ) ;
-            display.print(TmpCharFront);
-            }
+        display.setFont(&FreeSans12pt7b);
+        sprintf( TmpCharFront , "%3d", AltFront ) ;
+        display.print(TmpCharFront);
+        display.setFont(&FreeSans9pt7b);
+        display.print("A ");
         }
+    // distance frontiere < DISTANCE_PROCHE_XY
+    if ( DistFront > 999 )
+        {
+        display.setFont(&FreeSans12pt7b);
+        //            "999SE"
+        display.print("     ");
+        }
+    else
+        {
+        display.setFont(&FreeSans12pt7b);
+        sprintf( TmpCharFront , "%3d%s", DistFront , TmpCharCap ) ;
+        display.print(TmpCharFront);
+        }
+
     }
 
 /////////////
 // bandeaux 2
-const int y2 = 78 ;
-display.setFont(&FreeMonoBold18pt7b);
+const int y2 = 80 ;
+display.setFont(&FreeSans18pt7b);
 // duree du vol
-display.setCursor(0, y2+21);
+display.setCursor(30, y2);
 display.print(TmpCharDV);
 display.setFont(&FreeMonoBold12pt7b);
 if ( g_GlobalVar.m_DureeVolMin == ATTENTE_MESSAGE_GPS ||
@@ -540,86 +555,60 @@ if ( g_GlobalVar.m_DureeVolMin == ATTENTE_MESSAGE_GPS ||
     display.print(" ");
 else
     display.print("'");
-display.drawLine( 0 , 107 , 200 , 107 , GxEPD_BLACK ) ; // -
-display.drawLine( 90 , 108 , 90 , 85 , GxEPD_BLACK ) ; // |
-display.drawLine( 200 - 70 , 85 , 200 -70, 107 , GxEPD_BLACK ) ; // |
-display.drawLine( 90 , 85 , 200 -70, 85 , GxEPD_BLACK ) ; // -
-
-// derive
-display.setFont(&FreeMonoBold18pt7b);
-display.setCursor(59, y2);
-display.print(TmpCharAngleDerive);
-
-// cap
-display.setFont(&FreeMonoBold9pt7b);
-display.setCursor(135, y2+21);
-display.print(TmpCharCap);
-display.setFont(&FreeMonoBold18pt7b);
-display.print(TmpCharNomCap);
 
 /////////////
 // bandeaux 3
-// VZ / Finesse sol
-if ( GrosseVz )
-// ascendance
-    {
-    // align with centered
-    display.getTextBounds( TmpCharVz, 0, 0, &tbx, &tby, &tbw, &tbh);
-    uint16_t xv ;
-    if ( SigneNeg )
-        xv = (display.width() - tbw) / 2 - 20 ;
-    else
-        xv = (display.width() - tbw) / 2 - 30 ;
+const int y3 = 115 ;
+// derive
+display.setFont(&FreeSans18pt7b);
+display.setCursor(0, y3);
+display.print(TmpCharAngleDerive);
 
-    display.setFont(&FreeMonoBold24pt7b);
-    display.setCursor(xv, 152);
-    display.print(TmpCharVz);
-
-    //auto Color = (SigneNeg) ? GxEPD_BLACK : GxEPD_WHITE ;
-    if ( SigneNeg )
-        {
-        display.fillRect(0, 108, 200, 8, GxEPD_BLACK ); // x y w h
-        display.fillRect(0, 160, 200, 8, GxEPD_BLACK );
-        display.fillRect(0, 116, 20, 44, GxEPD_BLACK );
-        display.fillRect(180,116, 20, 44, GxEPD_BLACK );
-        }
-    }
-else
-    {
-    display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(0 , 147);
-    display.print(TmpCharVz);
-    display.setFont(&FreeMonoBold9pt7b);
-    display.print("m");
-    display.setFont(&FreeMonoBold18pt7b);
-    display.setCursor(110 , 147);
-    display.print(TmpCharFin);
-    display.drawLine( 105 ,110 ,105 , 160 , GxEPD_BLACK ) ;
-
-    //auto Color = (SigneNeg) ? GxEPD_BLACK : GxEPD_WHITE ;
-    if ( SigneNeg )
-        {
-        display.fillRect(0, 108, 105, 7, GxEPD_BLACK ); // x y w h
-        display.fillRect(0, 157, 105, 7, GxEPD_BLACK );
-        display.fillRect(0, 108, 7, 49, GxEPD_BLACK );
-        display.fillRect(98,108, 7, 49, GxEPD_BLACK );
-        }
-    }
+// cap
+display.setFont(&FreeSans9pt7b);
+display.setCursor(LARGEUR_213/2 , y3-5);
+display.print(TmpCharCap);
+display.setFont(&FreeSans12pt7b);
+display.print(TmpCharNomCap);
 
 /////////////
 // bandeaux 4
+// VZ
+// ascendance
+uint16_t xv ;
+if ( SigneNeg )
+    xv = 13 ;
+else
+    xv = 18 ;
+
+display.setFont(&FreeSans24pt7b);
+display.setCursor(xv, 170);
+display.print(TmpCharVz);
+
+if ( SigneNeg )
+    {
+    const int y1 = 125 ;
+    const int sb =  50 ;
+    const int h1 = 8 ;
+    const int l1 = 7 ;
+    display.fillRect(0,  y1   , LARGEUR_213, h1, GxEPD_BLACK ); // x y w h
+    display.fillRect(0,  y1+sb, LARGEUR_213, h1, GxEPD_BLACK );
+    display.fillRect(0,  y1, l1, sb, GxEPD_BLACK );
+    display.fillRect(LARGEUR_213-l1,  y1, l1, sb, GxEPD_BLACK );
+    }
+
+/////////////
+// bandeaux 5
 // alti
-//display.drawLine( 0 , 163 , 200 , 163 , GxEPD_BLACK ) ;
 display.setFont(&FreeSans18pt7b);
-display.setCursor(0, 202 );
+display.setCursor(20, 215 );
 display.print(TmpCharAlt);
 display.setFont(&FreeSans9pt7b);
 display.print("m");
 
 // vitesse sol/hauteur sol
+display.setCursor(20, 250 );
 display.setFont(&FreeSans18pt7b);
-//display.setCursor(102, 195);
-//display.drawLine( 100 ,200 ,100 , 163 , GxEPD_BLACK ) ;
 if ( AffichageHauteurSol )
     {
     display.print(TmpCharVitSol);
@@ -633,8 +622,7 @@ else
     display.print("m");
     }
 
-// attente nouvelle page
-//while (display.nextPage()) delay(1) ;
+// affichage nouvelle page
 display.display(true) ;
 
 /*// si changement d'ecran si pas en mode V ou G/S

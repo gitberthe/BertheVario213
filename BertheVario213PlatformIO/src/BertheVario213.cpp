@@ -7,7 +7,7 @@
 /// \date modification : 13/02/2025
 ///
 
-char NumVer[] = "20250213c" ;
+char NumVer[] = "20250214a" ;
 
 // uncomment next line to use HSPI for EPD (and e.g VSPI for SD), e.g. with Waveshare ESP32 Driver Board
 //#define USE_HSPI_FOR_EPD
@@ -247,7 +247,7 @@ void loop()
 {
 
 g_GlobalVar.m_VitVertMS += 0.1 ;
-if ( g_GlobalVar.m_VitVertMS >= 9.9 )
+if ( g_GlobalVar.m_VitVertMS >= 0.3 )
     g_GlobalVar.m_VitVertMS *= -1 ;
 
 
