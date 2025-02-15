@@ -1,5 +1,5 @@
 le 20250215a :
- - ajout schema FreeCad
+ - ajout schema FreeCad et Kicad.
  
 le 20250214b :
  - altitude en bas page Vz.
