@@ -1,4 +1,4 @@
-23055825999974704
+23057566754834374
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -385,14 +385,21 @@ BertheShema
 4
 4
 BertheShema
-BMP180
+ESP32-D0WDQ6
+
+
+0
+28
+27
+BertheShema
+GPSNEO6V2
 
 
 0
 4
 4
 BertheShema
-GPSNEO6V2
+MS5611
 
 
 0
