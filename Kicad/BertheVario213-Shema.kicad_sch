@@ -7,7 +7,7 @@
   (title_block
     (title "BertheVario213")
     (date "2025-02-15")
-    (rev "1.0")
+    (rev "1.01")
     (comment 1 "Author : SpinBerthe")
   )
 
@@ -1546,7 +1546,7 @@
     (property "Reference" "S1" (at 27.94 72.39 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
-    (property "Value" "Speaker 2W 8ohms" (at 39.37 78.74 0)
+    (property "Value" "Speaker 1W 80 ohms" (at 39.37 78.74 0)
       (effects (font (size 1.27 1.27)) (justify left))
     )
     (property "Footprint" "BertheShema:2 trous standard" (at 33.02 67.31 0)

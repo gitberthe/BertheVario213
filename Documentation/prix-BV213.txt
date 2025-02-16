@@ -1,6 +1,6 @@
 
 - batterie 2000mah
-- haut parleur
+- haut parleur 80h 1w
 - pcb
 - sd 4g
 - boitier
@@ -11,10 +11,10 @@
 - ms5611 pression
 - neo6m v2 gps
 - LILYGO GDEM0213T5BN 9102 chip
-- XY joystick
+- XY joystick                          changement conception
 - QMC5883L cap magnetique        28.52
 
 - s8050 x 50 
 - contacteur x 180                6.99
 
-- antenne wifi                    3.39
+- antenne wifi                    3.39 changement conception
