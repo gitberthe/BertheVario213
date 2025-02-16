@@ -11,4 +11,4 @@ Projet d'alti vario gps parapente (avec gestion des TMA CTR..., et mode guidage 
 
 **Le schema electrique :**
 
-<img src="./Photos/shema-BV213-1.0.png" width="500"/>
+<img src="./Photos/shema-BV213-1.05.png" width="500"/>
