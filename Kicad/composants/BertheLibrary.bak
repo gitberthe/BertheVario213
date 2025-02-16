@@ -70,7 +70,7 @@
       )
       (pin output line (at 15.24 -2.54 180) (length 2.54)
         (name "Speaker" (effects (font (size 1.27 1.27))))
-        (number "26" (effects (font (size 1.27 1.27))))
+        (number "25" (effects (font (size 1.27 1.27))))
       )
       (pin input line (at -15.24 5.08 0) (length 2.54)
         (name "Txd" (effects (font (size 1.27 1.27))))
