@@ -502,7 +502,7 @@ else
     const int y1 = 16 ;
     const int y2 = 45 ;
 
-    display.setFont(&FreeSans12pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.setCursor(0, y1);
     display.print(TmpCharNomSite);
     display.setFont(&FreeSans12pt7b);

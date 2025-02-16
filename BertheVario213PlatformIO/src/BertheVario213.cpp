@@ -240,10 +240,14 @@ bool once = true ;
 /// \brief fonction loop toujours appelée.
 void loop()
 {
-//Serial.print(".") ;
-CGlobalVar::BeepOk() ;
+/*
+CGlobalVar::beeper( 5000 , 200 ) ;
 delay( 600 ) ;
-return ;
+
+CGlobalVar::beeper( 8000 , 200 ) ;
+delay( 600 ) ;
+
+return ; */
 
 g_GlobalVar.m_VitVertMS += 0.1 ;
 if ( g_GlobalVar.m_VitVertMS >= 0.3 )
