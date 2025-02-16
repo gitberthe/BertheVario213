@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 15/02/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -228,6 +228,7 @@ display.display(true);
 void CScreen213::AfficheVoltage()
 {
 float Voltage = g_GlobalVar.GetVoltage() ;
+float Pourcent = (Voltage-3.7)/(4.3-3.7) * 100. ;
 
 // affichage
 char TmpChar[10] ;
@@ -236,12 +237,18 @@ sprintf( TmpChar , "%1.2fv", Voltage ) ;
 display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
 
 // voltage
-display.setFont(&FreeMonoBold24pt7b);
-display.setCursor(30, 75);
+display.setFont(&FreeMonoBold18pt7b);
+display.setCursor(7, 75);
 display.print(TmpChar);
 
-display.setFont(&FreeMonoBold18pt7b);
-display.setCursor(5, 150);
+// pourcentage
+sprintf( TmpChar , "%3d%c", (int)Pourcent , '%' ) ;
+display.setCursor(7, 120);
+display.print(TmpChar);
+
+// firmware
+display.setFont(&FreeMonoBold9pt7b);
+display.setCursor(10, 150);
 display.print(NumVer);
 
 display.display(true);
@@ -294,7 +301,7 @@ CGestEcrans::EtatsAuto CScreen213::EcranVz()
 {
 //CLocTermic LocTermic ;
 
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
     Serial.println("Affichage de screen");
 #endif
 

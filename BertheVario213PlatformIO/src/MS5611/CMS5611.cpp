@@ -4,7 +4,7 @@
 /// \brief Fichier du capteur de pression
 ///
 /// \date creation     : 07/03/2024
-/// \date modification : 06/02/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -95,7 +95,7 @@ return Alti ;
 /// du capteur (mais proche de 8hz).
 void CMS5611::TacheVzCapMag(void *param)
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("tache Vz lancee");
 #endif
 

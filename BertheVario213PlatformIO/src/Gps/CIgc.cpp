@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 14/03/2024
-/// \date modification : 26/07/2024
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -27,7 +27,7 @@ sprintf( m_NomFchCourant ,"/%02d%02d%02d%02d.IGC" ,
 m_File = SD.open(m_NomFchCourant, FILE_WRITE , true );
 if (!m_File)
     {
-    #ifdef _LG_DEBUG_
+    #ifdef G_DEBUG
      Serial.print( "erreur creation fichier " ) ;
      Serial.println( m_NomFchCourant ) ;
     #endif
@@ -65,7 +65,7 @@ void CIgc::PushLoc2Igc()
 m_File = SD.open(m_NomFchCourant, FILE_APPEND );
 if (!m_File)
     {
-    #ifdef _LG_DEBUG_
+    #ifdef G_DEBUG
      Serial.print( "erreur creation fichier " ) ;
      Serial.println( m_NomFchCourant ) ;
     #endif

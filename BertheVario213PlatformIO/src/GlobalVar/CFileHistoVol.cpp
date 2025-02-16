@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 22/03/2024
-/// \date modification : 21/01/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -124,7 +124,7 @@ strcat( HistoFileName , TmpChar ) ;
 m_File = SD.open(HistoFileName, FILE_WRITE , true );
 if (!m_File)
     {
-    #ifdef _LG_DEBUG_
+    #ifdef G_DEBUG
      Serial.print( "erreur creation fichier NOM_FCH_HISTO_VOL" ) ;
     #endif
     return ;

@@ -33,16 +33,14 @@ g_GlobalVar.m_TaskArr[SOUNDSVR_NUM_TASK].m_Stopped = false ;
 xTaskCreatePinnedToCore(TacheSoundSvr, "SoundSvr", SOUNDSVR_STACK_SIZE , this, SOUNDSVR_PRIORITY, NULL, SOUNDSVR_CORE);
 }
 
-#define TASMOTA
-
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief Tache pour jouer les sons qui sont dans la file d'attente.
 void CSoundSvr::TacheSoundSvr(void* param)
 {
 g_GlobalVar.m_TaskArr[SOUNDSVR_NUM_TASK].m_Stopped = false ;
 
-// utilisation du convertisseur DA
-/*dac_output_enable(DAC_CHANNEL_1);
+/*// utilisation du convertisseur DA
+dac_output_enable(DAC_CHANNEL_1);
 dac_cw_config_t config ;
 config.en_ch = DAC_CHANNEL_1 ; // DAC_GPIO25_CHANNEL ;
 //config.scale = DAC_CW_SCALE_8 ;   // le moins fort
@@ -51,16 +49,22 @@ config.scale = DAC_CW_SCALE_1 ; // le plus fort */
 const int channel = 0 ;
 const int resolution = 8; // Résolution de 8 bits, 256 valeurs possibles
 
+//pinMode(SPEAKER_PIN, OUTPUT);
+
+//for (int i=0; i<255; i++){
+//   dacWrite(DAC1, i);          //write on DAC Pin
+// }
+
 // boucle du serveur
 StSoundRequest SoundRequest ;
 #ifdef TASMOTA
 // init par defaut sinon bug
-g_GlobalVar.m_MutexI2c.PrendreMutex() ;
+//g_GlobalVar.m_MutexI2c.PrendreMutex() ;
  ledcAttachChannel(SPEAKER_PIN, SoundRequest.m_Frequence , resolution , channel );
  ledcDetach(SPEAKER_PIN) ;
-g_GlobalVar.m_MutexI2c.RelacherMutex() ;
+//g_GlobalVar.m_MutexI2c.RelacherMutex() ;
 #endif
-while (g_GlobalVar.m_TaskArr[SOUNDSVR_NUM_TASK].m_Run)
+while (g_GlobalVar.m_TaskArr[SOUNDSVR_NUM_TASK].m_Run || true )
     {
     // attente 5 millisecondes
     if( !xQueueReceive(g_GlobalVar.m_queue, &(SoundRequest), (TickType_t)0))
@@ -69,11 +73,16 @@ while (g_GlobalVar.m_TaskArr[SOUNDSVR_NUM_TASK].m_Run)
         continue ;
         }
 
+    #ifdef G_DEBUG
+     Serial.print("son : ") ;
+     Serial.println(SoundRequest.m_Frequence) ;
+    #endif
+
     // traitement de la demande
     if ( SoundRequest.m_Frequence > 0 )
         {
         // configuration led
-        g_GlobalVar.m_MutexI2c.PrendreMutex() ;
+        //g_GlobalVar.m_MutexI2c.PrendreMutex() ;
         #ifdef TASMOTA
          ledcAttachChannel(SPEAKER_PIN, SoundRequest.m_Frequence , resolution , channel );
          ledcWrite(SPEAKER_PIN, SoundRequest.m_Cycle );
@@ -82,19 +91,19 @@ while (g_GlobalVar.m_TaskArr[SOUNDSVR_NUM_TASK].m_Run)
          ledcAttachPin(SPEAKER_PIN, channel );
          ledcWrite(channel, SoundRequest.m_Cycle );
         #endif
-        g_GlobalVar.m_MutexI2c.RelacherMutex() ;
+        //g_GlobalVar.m_MutexI2c.RelacherMutex() ;
 
         // attente
         delay( SoundRequest.m_DelayMs ) ;
 
         // raz led
-        g_GlobalVar.m_MutexI2c.PrendreMutex() ;
+        //g_GlobalVar.m_MutexI2c.PrendreMutex() ;
         #ifdef TASMOTA
          ledcDetach(SPEAKER_PIN) ;
         #else
          ledcDetachPin(SPEAKER_PIN) ;
         #endif
-        g_GlobalVar.m_MutexI2c.RelacherMutex() ;
+        //g_GlobalVar.m_MutexI2c.RelacherMutex() ;
 
         /*g_GlobalVar.m_MutexI2c.PrendreMutex() ;
          tone(SPEAKER_PIN, SoundRequest.m_Frequence, SoundRequest.m_DelayMs ) ;

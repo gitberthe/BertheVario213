@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/10/2024
-/// \date modification : 28/01/2025
+/// \date modification : 16/02/2025
 ///
 
 #ifndef _CSOUNDSVR_
@@ -16,6 +16,8 @@
 #define VOLUME_MOYEN       127
 #define VOLUME_MAX_CYCLE   255
 #define VOLUME_BAS         50
+
+#define TASMOTA
 
 ////////////////////////////////////////////////////////////////////////////////
 /// \brief Serveur de son

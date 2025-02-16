@@ -1,5 +1,7 @@
 le 20250216a :
  - progression pcb.
+ - mise au point son.
+ - lecture vbat.
 
 le 20250215a2 :
  - debut conception pcb.

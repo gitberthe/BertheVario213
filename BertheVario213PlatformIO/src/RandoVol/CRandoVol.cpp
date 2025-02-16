@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 13/01/2025
-/// \date modification : 18/01/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -28,7 +28,7 @@ g_GlobalVar.EcranRandoVol() ;
 /// \brief Lance les tache de gestion du Gps : acquisition serie
 void CRandoVol::LanceTacheRandoVol()
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("lancement tache gps");
 #endif
 

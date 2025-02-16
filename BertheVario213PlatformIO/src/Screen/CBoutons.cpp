@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 09/03/2024
-/// \date modification : 02/02/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -13,7 +13,7 @@
 /// \brief fonction qui initialise les boutons
 void CBoutons::InitButton()
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("Init des boutons" ) ;
 #endif
 

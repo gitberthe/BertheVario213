@@ -4,7 +4,7 @@
 /// \brief Include global du projet
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 13/02/2025
+/// \date modification : 16/02/2025
 ///
 
 //////////////////
@@ -44,7 +44,7 @@
 
 ////////////////
 // si mode debug
-//#define _LG_DEBUG_
+#define G_DEBUG
 //#define GPS_DEBUG
 //#define IGC_DEBUG
 //#define HTTP_DEBUG
@@ -63,23 +63,22 @@
 ////////////////////////
 // definition des pin //
 ////////////////////////
-#define POWER_PIN           12
 #define POWER_PIN_STATE     HIGH
 #define SPEAKER_PIN         25
-#define VOLTAGE_DIVISOR_PIN 35
+#define VOLTAGE_DIVISOR_PIN 36
 
 // boutons
-#define BUTTON_A_PIN 38
-#define BUTTON_B_PIN 37
-#define BUTTON_C_PIN 39
+#define BUTTON_A_PIN 14
+#define BUTTON_B_PIN 15
+#define BUTTON_C_PIN 13
 
 // GPS
-#define pinGpsRXD  (33)
+#define pinGpsRXD  (3)      // 3 Txd / 4 Rxd
 #define pinGpsTXD  (-1)
 
 // MPU 9250 / MS5611
-#define VARIO_SDA_PIN 27
-#define VARIO_SCL_PIN 32
+#define VARIO_SDA_PIN 21
+#define VARIO_SCL_PIN 22
 
 #define MS5611_ADDRESS          (0x77)
 

@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 04/03/2024
-/// \date modification : 03/02/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -27,7 +27,7 @@ ESP32PWM::allocateTimer(3);*/
 /// \brief Lance la tache de gestion du Gps
 void CVarioBeep::LanceTacheVarioBeep()
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("lancement tache vario beep");
 #endif
 // tache de port serie

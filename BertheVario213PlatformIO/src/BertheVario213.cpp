@@ -4,10 +4,10 @@
 /// \brief Fichier principal du projet GNU-Vario de Berthe
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 15/02/2025
+/// \date modification : 16/02/2025
 ///
 
-char NumVer[] = "20250215a" ;
+char NumVer[] = "20250216a" ;
 
 // uncomment next line to use HSPI for EPD (and e.g VSPI for SD), e.g. with Waveshare ESP32 Driver Board
 //#define USE_HSPI_FOR_EPD
@@ -33,30 +33,25 @@ void setup()
 // init port serie de console
 Serial.begin(115200);
 Serial.println("Setup") ;
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println();
  Serial.println("fonction setup");
  delay(100);
 #endif
 
-//#if defined(ESP32) && defined(USE_HSPI_FOR_EPD)
-  //hspi.begin(13, 12, 14, 15); // remap hspi for EPD (swap pins)
-  //display.epd2.selectSPI(hspi, SPISettings(4000000, MSBFIRST, SPI_MODE0));
-//#endif
-
 // beeper init
-//g_GlobalVar.LanceTacheSound() ;
-//delay( 300 ) ;
-//CGlobalVar::BeepOk() ;
-
-// init alim
-//g_GlobalVar.InitAlim() ;
+g_GlobalVar.LanceTacheSound() ;
+delay( 300 ) ;
+CGlobalVar::BeepOk() ;
 
 // init ecran
 g_GlobalVar.InitScreen() ;
 
+// pour la lecture de la batterie
+g_GlobalVar.InitAlim() ;
+
 // affichage boutons
-g_GlobalVar.AfficheBoutons() ;
+//g_GlobalVar.AfficheBoutons() ;
 
 // init boutons
 //g_GlobalVar.InitButton() ;
@@ -79,10 +74,10 @@ while ( (millis() - time) < 400 )
         BoutonCentreAppuye = true ;
     }
 g_GlobalVar.BootEffectue() ;
-
+*/
 // affichage voltage
 g_GlobalVar.AfficheVoltage() ;
-*/
+
 
 /*// si un bouton appuye
 if ( BoutonCentreAppuye || BoutonDroitAppuye || BoutonGaucheAppuye )
@@ -234,7 +229,7 @@ else
     }
 #endif
 
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
   Serial.println("setup done");
 #endif
 }
@@ -245,6 +240,10 @@ bool once = true ;
 /// \brief fonction loop toujours appelée.
 void loop()
 {
+//Serial.print(".") ;
+CGlobalVar::BeepOk() ;
+delay( 600 ) ;
+return ;
 
 g_GlobalVar.m_VitVertMS += 0.1 ;
 if ( g_GlobalVar.m_VitVertMS >= 0.3 )
@@ -301,7 +300,7 @@ if ( once )
     }
 
 // message de debugage
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("fonction loop");
 #endif
 

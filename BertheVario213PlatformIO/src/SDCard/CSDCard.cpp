@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 04/03/2024
-/// \date modification : 13/02/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -21,7 +21,7 @@ SpiSdCard.begin(SDCARD_SCK_PIN, SDCARD_MISO_PIN, SDCARD_MOSI_PIN, SDCARD_CS_PIN)
 delay( 200 ) ;
 if ( !SD.begin(SDCARD_CS_PIN, SpiSdCard) )
     {
-    #ifdef _LG_DEBUG_
+    #ifdef G_DEBUG
      Serial.println("SDCard initialization failed!");
     #endif
 

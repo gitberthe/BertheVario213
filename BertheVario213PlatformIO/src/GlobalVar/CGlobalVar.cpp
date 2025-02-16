@@ -4,7 +4,7 @@
 /// \brief Variable globale du projet
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 28/01/2025
+/// \date modification : 16/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -126,16 +126,16 @@ esp_wifi_deinit() ; */
 }
 
 ///////////////////////////////////////////////////////////////////////////////
-/// \brief fonction qui met en route les alimentation imu/gps
+/// \brief fonction initialise le diviseur de tension
 void CGlobalVar::InitAlim()
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("Init des alimentations" ) ;
 #endif
 
 // init des alimentations
-pinMode(POWER_PIN, OUTPUT);
-digitalWrite(POWER_PIN, POWER_PIN_STATE); // turn on POWER (POWER_PIN_STATE is the voltage level HIGH/LOW)
+//pinMode(POWER_PIN, OUTPUT);
+//digitalWrite(POWER_PIN, POWER_PIN_STATE); // turn on POWER (POWER_PIN_STATE is the voltage level HIGH/LOW)
 
 // Init mesure tension batterie
 pinMode(VOLTAGE_DIVISOR_PIN, INPUT);
@@ -147,7 +147,7 @@ analogReadResolution(12);
 /// voir aussi CSDCard::InitSDCard() pour les pin et le "SPI"
 void CGlobalVar::InitI2C()
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("Init I2C" ) ;
 #endif
 
@@ -209,12 +209,10 @@ float Voltage = 0. ;
 // mesure du voltage
 for (int i = 0; i < 10; i++)
     Voltage += analogRead(VOLTAGE_DIVISOR_PIN);
-Voltage /= 10;
-Voltage /= 1000 / 2 ;
+Voltage /= 10; // 10 mesures
+Voltage /= 1000 / 2 ; // mili volts sur pont diviseur
 
-#ifdef GNU_VARIO_GRIS
- Voltage -= 0.5 ;
-#endif
+Voltage *= 4.07 / 4.53 ; // mesure relle voltmetre
 
 return Voltage ;
 }
