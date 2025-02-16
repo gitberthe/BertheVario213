@@ -240,8 +240,7 @@ bool once = true ;
 /// \brief fonction loop toujours appelée.
 void loop()
 {
-/*
-CGlobalVar::beeper( 5000 , 200 ) ;
+/* CGlobalVar::beeper( 5000 , 200 ) ;
 delay( 600 ) ;
 
 CGlobalVar::beeper( 8000 , 200 ) ;
