@@ -232,17 +232,57 @@ else
 
 bool once = true ;
 
+/* AsyncClient* client = new AsyncClient;
+#define HOST "pdd.dprslt.fr"
+#define PORT 80 */
+
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief fonction loop toujours appelée.
 void loop()
 {
-/* CGlobalVar::beeper( 5000 , 200 ) ;
-delay( 600 ) ;
+/*
+//client->write("GET /README.md HTTP/1.1\r\nHost: " HOST "\r\nUser-Agent: ESP\r\nConnection: close\r\n\r\n");
+  client->onError([](void* arg, AsyncClient* client, int8_t error) {
+    Serial.printf("** error occurred %s \n", client->errorToString(error));
+    client->close(true);
+    //delete client;
+  });
 
-CGlobalVar::beeper( 8000 , 200 ) ;
-delay( 600 ) ;
+  client->onDisconnect([](void* arg, AsyncClient* client) {
+      Serial.printf("** client has been disconnected: %" PRIu16 "\n", client->localPort());
+      //client->close(true);
+      //delete client;
 
-return ; */
+      //permits++;
+      //makeRequest();
+    });
+
+    client->onData([](void* arg, AsyncClient* client, void* data, size_t len) {
+      //Serial.printf("** data received by client: %" PRIu16 ": len=%u\n", client->localPort(), len);
+      Serial.printf( (char*)data) ;
+    });
+
+  client->onConnect([](void* arg, AsyncClient* client) {
+    //pekhoih-prog/AsyncTCP_SSL@^1.3.1
+	armmbed/mbedtls@^2.23.0rmits--;
+    Serial.printf("** client has been connected: %" PRIu16 "\n", client->localPort());
+
+    //client->connect(HOST,client->localPort());
+
+    //client->write("GET /README.md HTTP/1.1\r\nHost: " HOST "\r\nUser-Agent: ESP\r\nConnection: close\r\n\r\n");
+    client->write("GET /space/notams HTTP/1.0\r\nHost: " HOST "\r\nUser-Agent: ESP\r\nConnection: open\n\r\n");
+    }) ;
+
+  if (once && client->connect(HOST, PORT))
+    {
+    once = false ;
+    Serial.println( "connect ok" ) ;
+    }
+  //else
+  //    client->write("GET /README.md HTTP/1.1\r\nHost: " HOST "\r\nUser-Agent: ESP\r\nConnection: close\r\n\r\n");
+
+return ;
+*/
 
 g_GlobalVar.m_VitVertMS += 0.1 ;
 if ( g_GlobalVar.m_VitVertMS >= 0.3 )
