@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 16/02/2025
+/// \date modification : 17/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -117,7 +117,7 @@ g_GlobalVar.RazBoutons() ;
 
 g_GlobalVar.m_StopLoop = true ;
 
-//if ( g_GlobalVar.m_MS5611.GetTemperatureDegres() > g_GlobalVar.m_Config.m_temp_raz_screen && !Froid )
+//if ( g_GlobalVar.m_MS5611Press.GetTemperatureDegres() > g_GlobalVar.m_Config.m_temp_raz_screen && !Froid )
     {
     display.setCursor( 0 , 0 ) ;
     display.print( "" );
@@ -1557,15 +1557,15 @@ sprintf( TmpCharVB , "%1.2fv", g_GlobalVar.GetVoltage() ) ;
 
 // cap magnetique
 char TmpCharCM[30] ;
-sprintf( TmpCharCM , "Cap m :   %3dd", (int)g_GlobalVar.m_Mpu9250.m_CapMagnetique ) ;
+sprintf( TmpCharCM , "Cap m :   %3dd", (int)g_GlobalVar.m_QMC5883Mag.GetCapDegres() ) ;
 
 // alti baro
 char TmpAltiBaro[30] ;
-sprintf( TmpAltiBaro , "Al bar:  %4.0fm", g_GlobalVar.m_MS5611.GetAltiMetres() ) ;
+sprintf( TmpAltiBaro , "Al bar:  %4.0fm", g_GlobalVar.m_MS5611Press.GetAltiMetres() ) ;
 
 // temperature
 char TmpCharTemp[30] ;
-sprintf( TmpCharTemp , "Temp  :  %4.1fd", g_GlobalVar.m_MS5611.GetTemperatureDegres() ) ;
+sprintf( TmpCharTemp , "Temp  :  %4.1fd", g_GlobalVar.m_MS5611Press.GetTemperatureDegres() ) ;
 
 // memoire
 char TmpCharMem[30] ;
@@ -1845,7 +1845,7 @@ if ( NbInfo-- >= 0 )
 
     // temperature
     char TmpCharTemp[30] ;
-    sprintf( TmpCharTemp , "Temp :   %4.1fd", g_GlobalVar.m_MS5611.GetTemperatureDegres() ) ;
+    sprintf( TmpCharTemp , "Temp :   %4.1fd", g_GlobalVar.m_MS5611Press.GetTemperatureDegres() ) ;
 
     // v batterie
     char TmpCharVB[20] ;
@@ -1968,8 +1968,8 @@ else
     if ( !g_GlobalVar.m_OrientationCapGps )
         {
         // dessin du cap magnetique nord
-        int xnm = -50 * cosf( g_GlobalVar.m_Mpu9250.m_CapMagnetique * PI / 180. - PI/2. ) + 100 ;
-        int ynm =  50 * sinf( g_GlobalVar.m_Mpu9250.m_CapMagnetique * PI / 180. - PI/2. ) + 100 ;
+        int xnm = -50 * cosf( g_GlobalVar.m_QMC5883Mag.GetCapDegres() * PI / 180. - PI/2. ) + 100 ;
+        int ynm =  50 * sinf( g_GlobalVar.m_QMC5883Mag.GetCapDegres() * PI / 180. - PI/2. ) + 100 ;
         display.drawLine( 100 , 100 , xnm , ynm , GxEPD_BLACK ) ;
 
         // dessin du cap gps

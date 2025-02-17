@@ -4,7 +4,7 @@
 /// \brief Variable globale du projet
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 16/02/2025
+/// \date modification : 17/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -250,5 +250,5 @@ return -Angle ;
 /// \brief Renvoie la derive en degres
 float CGlobalVar::GetDeriveDeg()
 {
-return GetDiffAngle( m_CapGpsDeg , m_Mpu9250.m_CapMagnetique ) ;
+return GetDiffAngle( m_CapGpsDeg , m_QMC5883Mag.GetCapDegres() ) ;
 }

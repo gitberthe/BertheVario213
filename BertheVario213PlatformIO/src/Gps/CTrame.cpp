@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 16/02/2025
+/// \date modification : 17/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -216,7 +216,7 @@ if ( !strcmp(pChar,"--GGA" ) )
             g_GlobalVar.m_MutexVariable.RelacherMutex() ;
             // mise a jour des altitudes
             g_GlobalVar.m_AltitudeSolHgt = g_GlobalVar.m_Hgt2Agl.GetGroundZ( g_GlobalVar.m_TerrainPosCur.m_Lon , g_GlobalVar.m_TerrainPosCur.m_Lat ) ;
-            g_GlobalVar.m_TerrainPosCur.m_AltiBaro = g_GlobalVar.m_MS5611.GetAltiMetres() ;
+            g_GlobalVar.m_TerrainPosCur.m_AltiBaro = g_GlobalVar.m_MS5611Press.GetAltiMetres() ;
             #endif
             }
         // nombre de satellites en poursuite

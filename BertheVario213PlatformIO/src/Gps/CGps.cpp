@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 16/02/2025
+/// \date modification : 17/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -134,7 +134,7 @@ while ( g_GlobalVar.m_TaskArr[TEMPS_NUM_TASK].m_Run )
         {
         // raz difference altitude presion/wgs84 = altitude affichée est barometrique pure
         if ( ! g_GlobalVar.m_StabGps.IsGpsStable() )
-            g_GlobalVar.m_MS5611.SetAltiSolUndef() ;
+            g_GlobalVar.m_MS5611Press.SetAltiSolUndef() ;
 
         // purge boutons pour eviter un arret vol dans la fouléé
         g_GlobalVar.PurgeBoutons( 3000 ) ;
@@ -155,7 +155,7 @@ while ( g_GlobalVar.m_TaskArr[TEMPS_NUM_TASK].m_Run )
 
          // recalage altibaro
          g_GlobalVar.m_MutexVariable.PrendreMutex() ;
-          g_GlobalVar.m_MS5611.SetAltiSolMetres( g_GlobalVar.m_AltitudeSolHgt ) ;
+          g_GlobalVar.m_MS5611Press.SetAltiSolMetres( g_GlobalVar.m_AltitudeSolHgt ) ;
          g_GlobalVar.m_MutexVariable.RelacherMutex() ;
 
          // si le gps n'est pas stable

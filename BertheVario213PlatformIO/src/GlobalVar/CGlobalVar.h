@@ -4,7 +4,7 @@
 /// \brief Variable globale du projet
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 13/02/2025
+/// \date modification : 17/02/2025
 ///
 
 #ifndef _GLOBALVAR_
@@ -13,7 +13,7 @@
 class CSimuVol ;
 
 ////////////////////////////////////////////////////////////////////////////////
-/// \brief Variable globale du projet. Contient CConfigFile m_Config, CMS5611 m_MS5611
+/// \brief Variable globale du projet. Contient CConfigFile m_Config, CMS5611 m_MS5611Press
 /// , CMpu9250 m_Mpu9250, CZonesAerAll m_ZonesAer et CHgt2Agl m_Hgt2Agl.
 class CGlobalVar : public CGps, public CScreen213, public CVarioBeep, public CSDCard, public CNumTaskArr, public CFinSol , public CSoundSvr , public CRandoVol
 {
@@ -21,13 +21,13 @@ public :
     CGlobalVar() ;
 
     CMutex      m_MutexCore ; ///< mutex pour mise a jour des % cpu
-    CMutex      m_MutexI2c ; ///< mutex d'accet au bus car trop de plantage nan alti baro / beeper / cap magnetique
-    CMutex      m_MutexVariable ; ///< mutex de la variable globale pour lat/lon gps sous forme char entre tache gps / igc
-    CConfigFile m_Config ;  ///< variables issues du fichier de config
-    CMS5611     m_MS5611 ;  ///< capteur de pression
-    CMpu9250    m_Mpu9250 ; ///< capteur accelerometrique
-    CFilesHistoVols m_HistoVol ; ///< historique du vol precedent
-    CZonesFchValid  m_ZonesAerAll ;///< tableau des zones aeriennes pris en compte
+    //CMutex      m_MutexI2c ; ///< mutex d'accet au bus car trop de plantage nan alti baro / beeper / cap magnetique
+    CMutex      m_MutexVariable ;   ///< mutex de la variable globale pour lat/lon gps sous forme char entre tache gps / igc
+    CConfigFile m_Config ;          ///< variables issues du fichier de config
+    CQMC5883Mag m_QMC5883Mag ;      ///< capteur magnetique
+    CMS5611Pression m_MS5611Press ; ///< capteur de pression
+    CFilesHistoVols m_HistoVol ;    ///< historique du vol precedent
+    CZonesFchValid  m_ZonesAerAll ; ///< tableau des zones aeriennes pris en compte
     CHgt2Agl    m_Hgt2Agl ; ///< pour determiner la hauteur sol
     CPileVit    m_PileVit ; ///< pour lancement vol suivant la vitesse gps
     #ifdef XC_TRACK

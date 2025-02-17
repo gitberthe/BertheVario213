@@ -4,10 +4,10 @@
 /// \brief Fichier principal du projet GNU-Vario de Berthe
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 16/02/2025
+/// \date modification : 17/02/2025
 ///
 
-char NumVer[] = "20250216a" ;
+char NumVer[] = "20250217a" ;
 
 // uncomment next line to use HSPI for EPD (and e.g VSPI for SD), e.g. with Waveshare ESP32 Driver Board
 //#define USE_HSPI_FOR_EPD
@@ -161,31 +161,28 @@ if ( false )
 else
     g_GlobalVar.m_ModeHttp = false ;
 
-/*
-
 // capteur de pression temperature
-g_GlobalVar.m_MS5611.InitMs5611() ;
+g_GlobalVar.m_MS5611Press.InitMs5611() ;
 
 // capteur accelerometrique/cap magnetique
-g_GlobalVar.m_Mpu9250.Init() ;
+g_GlobalVar.m_QMC5883Mag.InitMagnetique() ;
 
 // init port serie GPS
 g_GlobalVar.InitGps() ;
 
-////////////////////////////////////
+/*////////////////////////////////////
 // si calibration capteur magnetique
 if ( BoutonGaucheAppuye )
     {
     g_GlobalVar.AfficheCalibreMag() ;
     g_GlobalVar.m_Mpu9250.Calibration() ;
     CGlobalVar::Reboot() ;
-    }
+    }*/
 
 // lancement tache de calcul de la Vz et acquisition cap magnetique
-g_GlobalVar.m_MS5611.LancerTacheCalculVzCapMag() ;
+g_GlobalVar.m_MS5611Press.LancerTacheCalculVzCapMag() ;
 
-
-/////////////////////
+/*/////////////////////
 // si mode vol-rando
 #ifdef DEBUG_RANDO_VOl
  g_GlobalVar.m_ModeRandoVol = true ;
@@ -202,7 +199,7 @@ if ( BoutonDroitAppuye )
     g_GlobalVar.m_ModeRandoVol = true ;
     return ;
     }
-else
+else*/
     g_GlobalVar.m_ModeRandoVol = false ;
 
 // lancement tache gps
@@ -213,7 +210,6 @@ g_GlobalVar.LanceTacheVarioBeep() ;
 
 // screen tache de fond calcul
 g_GlobalVar.LancerTacheCalcul() ;
-*/
 
 // tache de mesure % utilisation cpu
 perfmon_start() ;

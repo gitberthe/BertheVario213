@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 30/01/2025
-/// \date modification : 13/02/2025
+/// \date modification : 17/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -92,7 +92,7 @@ m_Pos = strlen( (char*) m_CharBuffer ) ;
 //$VARIO,pressure,vario*ch pressure(float) is in hPa and vario in dm/s or empty string.
 //$VARIO,1013.25,,*45
 char MessageVario[100] = "" ;
-sprintf( MessageVario , "$VARIO,%.2f,," , g_GlobalVar.m_MS5611.GetPressureMb() ) ;
+sprintf( MessageVario , "$VARIO,%.2f,," , g_GlobalVar.m_MS5611Press.GetPressureMb() ) ;
 sprintf( (char*) m_CharBuffer , "%s*%X\r\n" , MessageVario , CalcChesksum(MessageVario) ) ;
 m_Pos = strlen( (char*) m_CharBuffer ) ;
 

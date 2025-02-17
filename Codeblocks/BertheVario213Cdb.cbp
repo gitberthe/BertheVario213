@@ -85,12 +85,12 @@
 		<Unit filename="../BertheVario213PlatformIO/src/Gps/CStabGps.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Gps/CTrame.cpp" />
 		<Unit filename="../BertheVario213PlatformIO/src/Gps/CTrame.h" />
-		<Unit filename="../BertheVario213PlatformIO/src/MPU9250/CMpu9250.cpp" />
-		<Unit filename="../BertheVario213PlatformIO/src/MPU9250/CMpu9250.h" />
-		<Unit filename="../BertheVario213PlatformIO/src/MS5611/CMS5611.cpp" />
-		<Unit filename="../BertheVario213PlatformIO/src/MS5611/CMS5611.h" />
+		<Unit filename="../BertheVario213PlatformIO/src/MS5611/CMS5611Pression.cpp" />
+		<Unit filename="../BertheVario213PlatformIO/src/MS5611/CMS5611Pression.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Perfmon/esp32_perfmon.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Perfmon/perfmon.cpp" />
+		<Unit filename="../BertheVario213PlatformIO/src/QMC5883L/CQMC5883Mag.cpp" />
+		<Unit filename="../BertheVario213PlatformIO/src/QMC5883L/CQMC5883Mag.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/RandoVol/CFileGpx.cpp" />
 		<Unit filename="../BertheVario213PlatformIO/src/RandoVol/CFileGpx.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/RandoVol/CRandoVol.cpp" />

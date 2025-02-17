@@ -4,7 +4,7 @@
 /// \brief Include global du projet
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 16/02/2025
+/// \date modification : 17/02/2025
 ///
 
 //////////////////
@@ -18,8 +18,7 @@
 #include <WiFi.h>
 #include <FS.h>
 #include <MS5611.h>
-#include <MPU9250.h>
-
+#include <DFRobot_QMC5883.h>
 #include <ESPFMfGK.h>
 
 #include <math.h>
@@ -135,8 +134,8 @@
 #include "GlobalVar/CNbSatDelay.h"
 #include "GlobalVar/CConfigFile.h"
 #include "Gps/CPileVit.h"
-#include "MS5611/CMS5611.h"
-#include "MPU9250/CMpu9250.h"
+#include "MS5611/CMS5611Pression.h"
+#include "QMC5883L/CQMC5883Mag.h"
 /*
 extern "C" {
 #include "Neural/SNNS_NET.h"
