@@ -1,5 +1,6 @@
 le 20250217a4 :
  - modification documentation concepteur.
+ - modification pcb
 
 le 20250217a3 :
  - modification pcb.
