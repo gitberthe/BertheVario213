@@ -6,8 +6,8 @@
 
   (title_block
     (title "BertheVario213")
-    (date "2025-02-15")
-    (rev "1.05")
+    (date "2025-02-19")
+    (rev "1.06")
     (comment 1 "Author : SpinBerthe")
   )
 
@@ -1431,7 +1431,7 @@
     (in_bom yes) (on_board yes) (dnp no) (fields_autoplaced)
     (uuid d3662b18-2624-463a-8195-45df6cb58e57)
     (property "Reference" "R1" (at 161.29 54.61 90)
-      (effects (font (size 1.27 1.27)) hide)
+      (effects (font (size 1.27 1.27)))
     )
     (property "Value" "1K" (at 161.29 57.15 90)
       (effects (font (size 1.27 1.27)))
