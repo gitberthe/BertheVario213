@@ -236,50 +236,10 @@ bool once = true ;
 #define HOST "pdd.dprslt.fr"
 #define PORT 80 */
 
-/*#include <PubSubClient.h>
-
-WiFiClient WC ;
-PubSubClient mqttClient(WC);
-
-void callback(char* topic, byte* message, unsigned int length) {
-  Serial.print("Message arrived on topic: ");
-  Serial.print(topic);
-  Serial.print(". Message: ");
-  String messageTemp;
-
-  for (int i = 0; i < length; i++) {
-    Serial.print((char)message[i]);
-    messageTemp += (char)message[i];
-  }
-  Serial.println();
-}
-
-char Req[] = "GET /README.md HTTP/1.1\r\nHost: pdd.dprslt.fr \r\nUser-Agent: ESP\r\nConnection: close\r\n\r\n" ;
-*/
 ///////////////////////////////////////////////////////////////////////////////
 /// \brief fonction loop toujours appelée.
 void loop()
 {
-/*static bool connected_var = false ;
-if ( !connected_var )
-    {
-    //mqttClient.begin(MQTT_BROKER_IP, MQTT_BROKER_PORT, myWiFiClient);               // lancement du client MQTT ...
-    mqttClient.setCallback(callback);                                            // ... qui appelera la fonction MQTT_Received si un message est reçu.
-    while ( !mqttClient.connected()  )
-        {
-        mqttClient.connect("pdd.dprslt.fr") ;
-        mqttClient.publish("outTopic", "xxx"); // Once connected, publish
-        mqttClient.subscribe("inTopic");      // ... and resubscribe
-        Serial.println("#") ;
-        }
-    mqttClient.write( (const uint8_t*) Req , strlen(Req) ) ;
-    CGlobalVar::BeepOk() ;
-    connected_var = true ;
-    }
-
-mqttClient.loop() ;
-
-return ; */
 /*
 //client->write("GET /README.md HTTP/1.1\r\nHost: " HOST "\r\nUser-Agent: ESP\r\nConnection: close\r\n\r\n");
   client->onError([](void* arg, AsyncClient* client, int8_t error) {
