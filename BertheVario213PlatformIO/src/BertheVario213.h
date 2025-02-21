@@ -4,7 +4,7 @@
 /// \brief Include global du projet
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 21/02/2025
 ///
 
 //////////////////
@@ -68,9 +68,9 @@
 #define VOLTAGE_DIVISOR_PIN 36
 
 // boutons
-#define BUTTON_A_PIN 14
-#define BUTTON_B_PIN 15
-#define BUTTON_C_PIN 13
+#define BUTTON_A_PIN 19
+#define BUTTON_B_PIN 32
+#define BUTTON_C_PIN 26
 
 // GPS
 #define pinGpsRXD  (3)      // 3 Txd / 4 Rxd

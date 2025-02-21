@@ -54,12 +54,12 @@ g_GlobalVar.InitAlim() ;
 //g_GlobalVar.AfficheBoutons() ;
 
 // init boutons
-//g_GlobalVar.InitButton() ;
+g_GlobalVar.InitButton() ;
 
 // init sdcard
 g_GlobalVar.InitSDCard() ;
 
-/*// boutons
+// boutons
 bool BoutonGaucheAppuye = false ;  // calibration
 bool BoutonCentreAppuye = false ;  // mode wifi
 bool BoutonDroitAppuye = false ;   // mode rando-vol
@@ -74,7 +74,7 @@ while ( (millis() - time) < 400 )
         BoutonCentreAppuye = true ;
     }
 g_GlobalVar.BootEffectue() ;
-*/
+
 // affichage voltage
 g_GlobalVar.AfficheVoltage() ;
 
