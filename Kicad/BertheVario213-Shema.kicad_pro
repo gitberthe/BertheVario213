@@ -170,7 +170,8 @@
         }
       ],
       "track_widths": [
-        0.0
+        0.0,
+        1.0
       ],
       "via_dimensions": [
         {
@@ -403,7 +404,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "BertheVarioTac-Shema.kicad_pro",
+    "filename": "BertheVario213-Shema.kicad_pro",
     "version": 1
   },
   "net_settings": {

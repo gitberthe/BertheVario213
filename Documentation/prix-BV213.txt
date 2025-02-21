@@ -1,6 +1,6 @@
 
 - batterie 2000mah 103450
-- haut parleur 80h 1w
+- haut parleur 8h 2w
 - pcb
 - sd 4g
 - boitier
