@@ -4,10 +4,10 @@
 /// \brief Fichier principal du projet GNU-Vario de Berthe
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 21/02/2025
 ///
 
-char NumVer[] = "20250221a" ;
+char NumVer[] = "20250221b" ;
 
 // uncomment next line to use HSPI for EPD (and e.g VSPI for SD), e.g. with Waveshare ESP32 Driver Board
 //#define USE_HSPI_FOR_EPD
@@ -51,7 +51,7 @@ g_GlobalVar.InitScreen() ;
 g_GlobalVar.InitAlim() ;
 
 // affichage boutons
-//g_GlobalVar.AfficheBoutons() ;
+g_GlobalVar.AfficheBoutons() ;
 
 // init boutons
 g_GlobalVar.InitButton() ;
@@ -79,7 +79,7 @@ g_GlobalVar.BootEffectue() ;
 g_GlobalVar.AfficheVoltage() ;
 
 
-/*// si un bouton appuye
+// si un bouton appuye
 if ( BoutonCentreAppuye || BoutonDroitAppuye || BoutonGaucheAppuye )
     {
     // lecture fichier de configuration
@@ -89,7 +89,7 @@ if ( BoutonCentreAppuye || BoutonDroitAppuye || BoutonGaucheAppuye )
     if ( BoutonCentreAppuye )
         g_GlobalVar.m_ZonesAerAll.LectureFichiers() ;
     }
-else */
+else
     {
     // lecture fichier de configuration
     g_GlobalVar.m_Config.LectureFichier() ;
@@ -107,7 +107,7 @@ g_GlobalVar.InitI2C() ;
 
 ////////////////////
 // si mode http wifi
-if ( false )
+if ( BoutonCentreAppuye )
     {
     g_GlobalVar.m_Config.LectureFichier() ;
 
@@ -170,19 +170,19 @@ g_GlobalVar.m_QMC5883Mag.InitMagnetique() ;
 // init port serie GPS
 g_GlobalVar.InitGps() ;
 
-/*////////////////////////////////////
+////////////////////////////////////
 // si calibration capteur magnetique
 if ( BoutonGaucheAppuye )
     {
     g_GlobalVar.AfficheCalibreMag() ;
-    g_GlobalVar.m_Mpu9250.Calibration() ;
+    g_GlobalVar.m_QMC5883Mag.CalibrationMagnetique() ;
     CGlobalVar::Reboot() ;
-    }*/
+    }
 
 // lancement tache de calcul de la Vz et acquisition cap magnetique
 g_GlobalVar.m_MS5611Press.LancerTacheCalculVzCapMag() ;
 
-/*/////////////////////
+/////////////////////
 // si mode vol-rando
 #ifdef DEBUG_RANDO_VOl
  g_GlobalVar.m_ModeRandoVol = true ;
@@ -190,16 +190,18 @@ g_GlobalVar.m_MS5611Press.LancerTacheCalculVzCapMag() ;
 #endif
 if ( BoutonDroitAppuye )
     {
-    // desactive ble
-    g_GlobalVar.m_Config.m_xc_track = false ;
-    esp_bt_controller_disable();
-    esp_bt_controller_deinit();
+    #ifdef XC_TRACK
+     // desactive ble
+     g_GlobalVar.m_Config.m_xc_track = false ;
+     esp_bt_controller_disable();
+     esp_bt_controller_deinit();
+    #endif
 
     g_GlobalVar.m_Config.LectureFichier() ;
     g_GlobalVar.m_ModeRandoVol = true ;
     return ;
     }
-else*/
+else
     g_GlobalVar.m_ModeRandoVol = false ;
 
 // lancement tache gps

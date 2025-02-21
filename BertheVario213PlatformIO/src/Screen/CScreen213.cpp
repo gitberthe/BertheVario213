@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 21/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -183,10 +183,10 @@ display.powerOff();
 /// \brief Affichage de "Connect to Wifi".
 void CScreen213::AfficheConnectWifi()
 {
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // connect to wifi
-display.setFont(&FreeMonoBold12pt7b);
+display.setFont(&FreeSans9pt7b);
 display.setCursor(10, 100);
 display.print("Connecting to\n  Wifi");
 
@@ -197,10 +197,10 @@ display.display(true);
 /// \brief Affichage de la calibration magnetique.
 void CScreen213::AfficheCalibreMag()
 {
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // voltage
-display.setFont(&FreeMonoBold12pt7b);
+display.setFont(&FreeSans9pt7b);
 display.setCursor(0, 75);
 display.print("Calibre magnitude (8)");
 
@@ -211,10 +211,11 @@ display.display(true);
 /// \brief Affichage de l'adresse ip.
 void CScreen213::AfficheWifi(char * IpAdress)
 {
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.setTextColor( GxEPD_BLACK );
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // ip adresse
-display.setFont(&FreeMonoBold12pt7b);
+display.setFont(&FreeSans9pt7b);
 display.setCursor(0, 75);
 display.print("http://");
 display.print(IpAdress);
@@ -234,7 +235,7 @@ float Pourcent = (Voltage-3.7)/(4.3-3.7) * 100. ;
 char TmpChar[10] ;
 sprintf( TmpChar , "%1.2fv", Voltage ) ;
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // voltage
 display.setFont(&FreeMonoBold18pt7b);
@@ -264,11 +265,12 @@ display.setFont(&FreeSans18pt7b);
 display.setCursor(10, 55);
 display.print("Berthe\n  Vario\n   213");
 
-/*// boutons
-display.setFont(&FreeMonoBold18pt7b);
-display.setCursor(0, 155);
-display.println("B       B");
-display.print("C   W   R"); */
+// boutons
+display.setFont(&FreeMonoBold12pt7b);
+display.setCursor(15, 225);
+display.print("B     B");
+display.setCursor(15, 245);
+display.print("C  W  R");
 
 display.display(true);
 }
@@ -691,8 +693,8 @@ if ( IsPageChanged() )
 // si pas de fichiers histo
 if ( g_GlobalVar.m_HistoVol.m_HistoDir.size() == 0 )
     {
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-    display.setFont(&FreeMonoBold12pt7b);
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+    display.setFont(&FreeSans9pt7b);
     // message
     display.setCursor(0, 20);
     display.print("0 histo");
@@ -729,8 +731,8 @@ sprintf( TmpCharDistMax , "%5.1f", g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_Dis
 char TmpCharTV[20] ;
 sprintf( TmpCharTV , "% 4.1f'", g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_TempsDeVol ) ;
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold12pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 // nom fch igc
 display.setCursor(0, y);
 display.print(TmpCharAffVol);
@@ -876,8 +878,8 @@ else
     m_MillisEcran0 = millis() ;
     }
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold12pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 // Mod
 display.setCursor(0, 20);
 display.print(TmpMod) ;
@@ -1044,8 +1046,8 @@ if ( NumTmaCtr >= 0 && NumTmaCtr < VecAffZones.size() )
             VecZone2Mod.push_back( VecAffZones[iz] ) ;
     }
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold12pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 // num tma/ctr
 display.setCursor(0, 15);
 display.print(NumTmaCtr);
@@ -1101,7 +1103,6 @@ if ( pZone->IsProtect() )
 
 display.display(true);
 
-
 // si time out ecran
 unsigned long Temps = millis() - m_MillisEcran0 ;
 if ( (Temps/1000) > m_SecRetourEcran0 )
@@ -1123,8 +1124,7 @@ if ( BCentre && VecZone2Mod.size() != 0 )
             {
             pZone->m_Activee = !pZone->m_Activee ;
             // compte rendu ecran
-            //display.setFont(&FreeMonoBold9pt7b);
-            display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+            display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
             display.setCursor( 0 , 140 ) ;
             display.println( "zone" ) ;
             if ( pZone->m_Activee )
@@ -1205,18 +1205,18 @@ for ( long iz = 0 ; iz < NbZones ; iz++ )
 
 // titre
 char TmpTitre[15] ;
-sprintf( TmpTitre , "%2d B. Cen. Mo." , g_GlobalVar.m_ZonesAerAll.GetNbZones() ) ;
+sprintf( TmpTitre , "%2d B. Cen." , g_GlobalVar.m_ZonesAerAll.GetNbZones() ) ;
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 // titre
-display.setFont(&FreeMonoBold12pt7b);
+display.setFont(&FreeSans9pt7b);
 display.setCursor( 0, 20 );
 display.print( TmpTitre ) ;
 
 // zones active
 long xcol = 0 ;
 long yligne = 15 ;
-display.setFont(&FreeMonoBold9pt7b);
+display.setFont(&FreeSans9pt7b);
 for ( int iz = 0 ; iz < VecZonesMod.size() ; iz++ )
     {
     if ( !VecZonesMod[iz]->m_DansFchActivation )
@@ -1233,9 +1233,9 @@ for ( int iz = 0 ; iz < VecZonesMod.size() ; iz++ )
         display.print( TmpChar  ) ;
         }
     yligne += 17 ;
-    if ( iz == 8 )
+    if ( iz == 10 )
         {
-        xcol = 110 ;
+        xcol = 55 ;
         yligne = 15 ;
         }
     }
@@ -1297,8 +1297,8 @@ for ( int ifch = 0 ; ifch < VecNomIgc.size() ; ifch++ )
     }
 
 char TmpChar[25] ;
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold9pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 
 // total igc
 y_cursor = 15 ;
@@ -1357,9 +1357,9 @@ CGestEcrans::EtatsAuto CScreen213::EcranConfimeArchIgcFch()
 // titre
 char TmpChar[] = "\n\n   Confirme\n   Archivage\n     Igc\n  Bouton GD" ;
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
 // titre
-display.setFont(&FreeMonoBold12pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 display.setCursor( 0, 20 );
 display.print( TmpChar ) ;
 display.display(true);
@@ -1373,7 +1373,7 @@ if ( (Temps/1000) > m_SecRetourEcran0 )
 if ( BoutonCentre() )
     {
     display.setCursor(0,70);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.print( "Annulation" );
     display.display(true);
     return ECRAN_2a_ListeIgc ;
@@ -1383,7 +1383,7 @@ if ( BoutonCentre() )
 if ( BoutonGauche() )
     {
     display.setCursor(0,70);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.print( "Archivage" );
     display.display(true);
     m_MillisEcran0 = millis() ;
@@ -1395,7 +1395,7 @@ if ( BoutonGauche() )
 if ( BoutonDroit() )
     {
     display.setCursor(0,70);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.print( "Archivage" );
     display.display(true);
     m_MillisEcran0 = millis() ;
@@ -1419,6 +1419,7 @@ std::string NomZone = "" ;
 
 if ( IsPageChanged() )
     {
+    display.setFont(&FreeSans9pt7b);
     g_GlobalVar.RazBoutons() ;
     NbAppButGD = 0 ;
     }
@@ -1443,7 +1444,7 @@ if ( BoutonCentre() )
     if ( NbAppButGD == 0 )
         return ECRAN_6_Sys ;
     display.setCursor(0,70);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.print( "Annulation" );
     display.display(true);
     m_MillisEcran0 = millis() ;
@@ -1466,8 +1467,8 @@ if ( BoutonGaucheLong() )
 // demande confirmation enregistrement point
 if ( NbAppButGD == 1 )
     {
-    display.setFont(&FreeMonoBold12pt7b);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.setFont(&FreeSans9pt7b);
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.setCursor(0,70);
     display.print( "Confirmation enregistrement point gps GD" );
     display.display(true);
@@ -1480,7 +1481,7 @@ if ( NbAppButGD >= 2  )
     if ( g_GlobalVar.m_TerrainPosCur.m_Lat == 0. && g_GlobalVar.m_TerrainPosCur.m_Lon == 0. )
         {
         NbAppButGD = 0 ;
-        display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+        display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
         display.setCursor(0,70);
         display.print( "Point null non enregistre" );
         display.display(true);
@@ -1518,8 +1519,8 @@ if ( NbAppButGD >= 2  )
     }
 
 // affichage zone et coordonnees
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold12pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 // nom zone
 display.setCursor(0,20);
 display.print( "Tma Dessus:\n" );
@@ -1576,8 +1577,8 @@ g_GlobalVar.m_MutexCore.PrendreMutex() ;
  int cpu1 = g_GlobalVar.m_PercentCore1 ;
 g_GlobalVar.m_MutexCore.RelacherMutex() ;
 
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold12pt7b);
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+display.setFont(&FreeSans9pt7b);
 
 // date et heure
 display.setCursor(12, 15);
@@ -1651,9 +1652,9 @@ if ( g_GlobalVar.m_EtatRando == CRandoVol::InitRando )
 
     // raz ecran
     display.setFullWindow() ;
-    display.setFont(&FreeMonoBold12pt7b);
+    display.setFont(&FreeSans9pt7b);
     display.setCursor(20, 75);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     // message
     display.print("Acquisition\n      Gps");
     display.display(true);
@@ -1685,7 +1686,7 @@ if ( g_GlobalVar.m_EtatRando == CRandoVol::InitRando )
         g_GlobalVar.m_EtatRando = CRandoVol::InitAfficheMenu ;
         }
     #endif
-    display.setPartialWindow( 0, 0, 200 , 200 );
+    display.setPartialWindow( 0, 0, LARGEUR_213 , HAUTEUR_213 );
     // si gps ok
     if ( g_GlobalVar.IsGpsOk() )
         g_GlobalVar.m_EtatRando = CRandoVol::InitAfficheMenu ;
@@ -1698,7 +1699,7 @@ if ( g_GlobalVar.m_EtatRando == CRandoVol::InitAfficheMenu )
     {
     // message
     display.setCursor(5, 75);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.print("Lecture *.gpx");
     display.display(true);
     // lecture fichiers
@@ -1738,8 +1739,8 @@ if ( NbMenuScreen++ < 8 && g_GlobalVar.m_EtatRando == CRandoVol::AfficheMenu )
 
     // affichage nom de piste
     display.setCursor(0,20);
-    display.setFont(&FreeMonoBold9pt7b);
-    display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+    display.setFont(&FreeSans9pt7b);
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
     // nom trace des traces proches
     char TmpChar[50] ;
@@ -1801,7 +1802,7 @@ if ( NbInfo < -1 )
     NbInfo = -1 ;
 
 // affichage page info
-display.fillRect(0,0, 200, 200, GxEPD_WHITE ); // x y w h
+display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 if ( NbInfo-- >= 0 )
     {
     float AltitudeRest = 222 ;
@@ -1855,7 +1856,7 @@ if ( NbInfo-- >= 0 )
     char TmpCharMem[35] ;
     sprintf( TmpCharMem ,  "f mem: %6db", (int) esp_get_free_heap_size() ) ;
 
-    display.setFont(&FreeMonoBold12pt7b);
+    display.setFont(&FreeSans9pt7b);
 
     // date et heure
     display.setCursor(0, 15);
