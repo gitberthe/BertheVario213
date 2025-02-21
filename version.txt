@@ -1,3 +1,6 @@
+le 20250221a :
+ - mis a jour schema/pcb.
+
 le 20250217a4 :
  - modification documentation concepteur.
  - modification pcb
