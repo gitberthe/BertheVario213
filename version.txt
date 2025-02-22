@@ -1,8 +1,11 @@
+le 20250222a :
+ - mise a jour pcb.
+ 
 le 20250221b :
  - taille caracteres pages.
  
 le 20250221a :
- - mis a jour schema/pcb.
+ - mise a jour schema/pcb.
 
 le 20250217a4 :
  - modification documentation concepteur.
