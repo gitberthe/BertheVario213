@@ -4,7 +4,7 @@
 /// \brief Fichier du capteur de pression
 ///
 /// \date creation     : 07/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 22/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -176,7 +176,7 @@ xTaskCreatePinnedToCore(TacheVzCapMag, "MS5611AltiTaskEtMag", VZ_MAG_STACK_SIZE,
 /// du capteur (mais proche de 8hz).
 void CMS5611Pression::TacheVzCapMag(void *param)
 {
-#ifdef _LG_DEBUG_
+#ifdef G_DEBUG
  Serial.println("tache Vz lancee");
 #endif
 

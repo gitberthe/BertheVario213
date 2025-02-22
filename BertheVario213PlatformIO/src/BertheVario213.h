@@ -44,14 +44,12 @@
 
 ////////////////
 // si mode debug
-#define G_DEBUG
+//#define G_DEBUG
 //#define GPS_DEBUG
 //#define IGC_DEBUG
 //#define HTTP_DEBUG
-//#define MS5611_DEBUG
+#define MS5611_DEBUG
 //#define SOUND_DEBUG
-//#define TERMIC_DEBUG
-//#define MPU9250_DEBUG
 //#define SMALL_VZ_DEBUG
 //#define TMA_DEBUG
 //#define REBOOT_DEBUG
