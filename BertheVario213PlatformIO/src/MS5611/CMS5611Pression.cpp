@@ -4,7 +4,7 @@
 /// \brief Fichier du capteur de pression
 ///
 /// \date creation     : 07/03/2024
-/// \date modification : 22/02/2025
+/// \date modification : 23/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -33,7 +33,7 @@ m_Mutex.PrendreMutex() ;
 m_Mutex.RelacherMutex() ;
 }
 
-////////////////////////////////////////////////////////////////////////////////
+/*////////////////////////////////////////////////////////////////////////////////
 /// \brief Renvoie l'alti pression recalee alti sol a la stabilisation gps
 float CVirtCaptPress::GetAltiMetres()
 {
@@ -41,7 +41,7 @@ m_Mutex.PrendreMutex() ;
  float ret = m_AltitudeBaroPure + m_DiffAltiBaroHauteurSol ;
 m_Mutex.RelacherMutex() ;
 return ret ;
-}
+}*/
 
 /******************************************************************************/
 
@@ -119,7 +119,12 @@ return g_MS5611.getTemperature() ;
 /// \brief Renvoie la mesure d'altitude pression directe du capteur
 float CMS5611Pression::GetAltiPressionCapteurMetres()
 {
-return CalcAltitude( GetPressureMb() * 100. ) ;
+float ret = CalcAltitude( GetPressureMb() * 100. ) ;
+ #ifdef MS5611_DEBUG
+  Serial.print( "alti pression : " ) ;
+  Serial.println( ret ) ;
+ #endif
+return ret ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -128,6 +133,10 @@ float CMS5611Pression::GetAltiMetres()
 {
 m_Mutex.PrendreMutex() ;
  float Alti = m_AltitudeBaroPure + m_DiffAltiBaroHauteurSol ;
+ #ifdef MS5611_DEBUG
+  Serial.print( "baro pure" ) ;
+  Serial.println( m_AltitudeBaroPure ) ;
+ #endif
 m_Mutex.RelacherMutex() ;
 
 // pour parer a un probleme
@@ -151,11 +160,7 @@ return Alti ;
 void CMS5611Pression::MesureAltitudeCapteur()
 {
 Read() ;
-float AltiMesCapteur = GetAltiPressionCapteurMetres()  ;
-
-m_Mutex.PrendreMutex() ;
- m_AltitudeBaroPure = AltiMesCapteur ;
-m_Mutex.RelacherMutex() ;
+m_AltitudeBaroPure = GetAltiPressionCapteurMetres()  ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -186,9 +191,9 @@ float AltiPressForVzArr[DIV_SECONDES+1] ;
 // init des variables alti pression integree
 //g_GlobalVar.m_MutexI2c.PrendreMutex() ;
  g_GlobalVar.m_MS5611Press.MesureAltitudeCapteur() ;
- float AltiBaroFiltree = g_GlobalVar.m_MS5611Press.GetAltiBaroPureMetres() ;
+ float AltiBaroFiltre = g_GlobalVar.m_MS5611Press.GetAltiBaroPureMetres() ;
  for ( int i = 0 ; i <= DIV_SECONDES ; i++ )
-    AltiPressForVzArr[i] = AltiBaroFiltree ;
+    AltiPressForVzArr[i] = AltiBaroFiltre ;
 //g_GlobalVar.m_MutexI2c.RelacherMutex() ;
 
 // alti pression filtree
@@ -205,21 +210,21 @@ while (g_GlobalVar.m_TaskArr[VZ_MAG_NUM_TASK].m_Run)
     // mesures du capteur de pression
     //g_GlobalVar.m_MutexI2c.PrendreMutex() ;
      g_GlobalVar.m_MS5611Press.MesureAltitudeCapteur() ;
-     AltiBaroFiltree = g_GlobalVar.m_MS5611Press.GetAltiPressionCapteurMetres()  ;
     //g_GlobalVar.m_MutexI2c.RelacherMutex() ;
+    float AltiBaroPure = g_GlobalVar.m_MS5611Press.GetAltiPressionCapteurMetres()  ;
 
     // filtrage alti pression
     const float CoefFiltre = g_GlobalVar.m_Config.m_coef_filtre_alti_baro ;
-    float AltiPressionFiltree = g_GlobalVar.m_MS5611Press.GetAltiBaroPureMetres() ;
-    AltiPressionFiltree = AltiPressionFiltree * CoefFiltre + (1.-CoefFiltre) * AltiBaroFiltree ;
-    //Serial.print("altipress:") ;
-    //Serial.println(g_GlobalVar.CMS5611::GetAltiBaroPureMetres());
+    AltiBaroFiltre = AltiBaroFiltre * CoefFiltre + (1.-CoefFiltre) * AltiBaroPure ;
+
+    //Serial.print("altipressfiltre:") ;
+    //Serial.println(AltiBaroFiltre);
 
     // decalage du tableau alti fifo par 0 sur 1 secondes
     for ( int i = DIV_SECONDES ; i>0 ; i-- )
         AltiPressForVzArr[ i ] = AltiPressForVzArr[ i - 1 ] ;
 
-    AltiPressForVzArr[ 0 ] = AltiPressionFiltree ;
+    AltiPressForVzArr[ 0 ] = AltiBaroFiltre ;
 
     // calcul VZ sur 1 secondes
     float VitVert = AltiPressForVzArr[ 0 ] - AltiPressForVzArr[ DIV_SECONDES ] ;

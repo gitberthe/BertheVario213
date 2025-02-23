@@ -21,7 +21,7 @@ public :
     virtual float GetTemperatureDegres() = 0 ;
     virtual float GetPressionhPa() const = 0 ;
 
-    virtual float GetAltiMetres() ;
+    virtual float GetAltiMetres() = 0 ;
 
     void    SetAltiSolMetres( float AltitudeSolHgt ) ;
     float   GetAltiBaroPureMetres() const

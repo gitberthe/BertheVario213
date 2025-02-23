@@ -4,7 +4,7 @@
 /// \brief Include global du projet
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 21/02/2025
+/// \date modification : 23/02/2025
 ///
 
 //////////////////
@@ -44,8 +44,8 @@
 
 ////////////////
 // si mode debug
-//#define G_DEBUG
-//#define GPS_DEBUG
+#define G_DEBUG
+#define GPS_DEBUG
 //#define IGC_DEBUG
 //#define HTTP_DEBUG
 #define MS5611_DEBUG
@@ -61,9 +61,11 @@
 ////////////////////////
 // definition des pin //
 ////////////////////////
-#define POWER_PIN_STATE     HIGH
+//#define POWER_PIN_STATE     HIGH
 #define SPEAKER_PIN         25
 #define VOLTAGE_DIVISOR_PIN 36
+
+//#define POWER_PIN   2
 
 // boutons
 #define BUTTON_A_PIN 19

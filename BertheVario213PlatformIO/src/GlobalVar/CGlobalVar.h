@@ -21,7 +21,7 @@ public :
     CGlobalVar() ;
 
     CMutex      m_MutexCore ; ///< mutex pour mise a jour des % cpu
-    //CMutex      m_MutexI2c ; ///< mutex d'accet au bus car trop de plantage nan alti baro / beeper / cap magnetique
+    //CMutex      m_MutexI2c ;  ///< mutex d'accet au bus car trop de plantage nan alti baro / beeper / cap magnetique
     CMutex      m_MutexVariable ;   ///< mutex de la variable globale pour lat/lon gps sous forme char entre tache gps / igc
     CConfigFile m_Config ;          ///< variables issues du fichier de config
     CQMC5883Mag m_QMC5883Mag ;      ///< capteur magnetique

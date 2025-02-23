@@ -135,7 +135,8 @@ void CGlobalVar::InitAlim()
 
 // init des alimentations
 //pinMode(POWER_PIN, OUTPUT);
-//digitalWrite(POWER_PIN, POWER_PIN_STATE); // turn on POWER (POWER_PIN_STATE is the voltage level HIGH/LOW)
+//digitalWrite(POWER_PIN, HIGH); // turn on POWER (POWER_PIN_STATE is the voltage level HIGH/LOW)
+//digitalWrite(POWER_PIN, LOW); // turn on POWER (POWER_PIN_STATE is the voltage level HIGH/LOW)
 
 // Init mesure tension batterie
 pinMode(VOLTAGE_DIVISOR_PIN, INPUT);
