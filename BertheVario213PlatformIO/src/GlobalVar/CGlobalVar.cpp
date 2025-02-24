@@ -4,7 +4,7 @@
 /// \brief Variable globale du projet
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 24/02/2025
 ///
 
 #include "../BertheVario213.h"
@@ -16,6 +16,12 @@ CGlobalVar::CGlobalVar()
 strcpy(m_LatChar, "0000000") ;
 strcpy(m_LonChar, "00000000") ;
 m_TerrainPosCur.m_Nom = "pos-cur" ;
+
+// init des variables
+m_TerrainPosCur.m_AltiBaro = 9999 ;
+m_ZonesAerAll.m_DistXYNextZone = 999 ;
+m_ZonesAerAll.m_DistAltCurZone = 499 ;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////

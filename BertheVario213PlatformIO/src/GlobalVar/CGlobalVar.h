@@ -51,8 +51,8 @@ public :
     // parametres Gps
     float m_AltiGps = 0. ;      ///< alti gps en metres
     int   m_AltitudeSolHgt = 0 ;    ///< altitude sol hgt
-    int   m_CapGpsDeg = 0 ;     ///< cap gps en degres
-    float m_VitesseKmh = 0. ;   ///< vitesse gps en km/h
+    int   m_CapGpsDeg = 359;     ///< cap gps en degres
+    float m_VitesseKmh = 99.9 ;   ///< vitesse gps en km/h
     int   m_Annee = 1 ;         ///< Annee gps
     int   m_Mois = 1 ;          ///< Mois gps
     int   m_Jour = 1 ;          ///< Jour gps
