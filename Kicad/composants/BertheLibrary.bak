@@ -513,11 +513,11 @@
     (symbol "jumper_1_1"
       (pin input line (at -5.08 0 0) (length 2.54)
         (name "1" (effects (font (size 1.27 1.27))))
-        (number "" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27))))
       )
       (pin input line (at 5.08 0 180) (length 2.54)
         (name "2" (effects (font (size 1.27 1.27))))
-        (number "" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))
       )
     )
   )
