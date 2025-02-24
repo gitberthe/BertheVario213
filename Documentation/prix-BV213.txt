@@ -6,6 +6,7 @@
 - boitier
 
 - resistance 1k
+- resistance 10k
 - resistance 4.7k                 5.54
 
 - ms5611 pression
