@@ -7,7 +7,7 @@ Projet d'alti vario gps parapente (avec gestion des TMA CTR..., et mode guidage 
 
 **La carte de base :**
 
-<img src="./Photos/00-ecran-vz.jpg" width="250"/> <img src="./Photos/03-cablage.jpg" width="250"/>
+<img src="./Photos/00-ecran-vz.jpg" width="200"/> <img src="./Photos/03-cablage.jpg" width="200"/>
 
 **Le schema electrique :**
 
