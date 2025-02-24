@@ -1,3 +1,6 @@
+le 20250224a :
+ - pcb ok a verifier.
+
 le 20250223a :
  - correction alti baro filtrée.
 
