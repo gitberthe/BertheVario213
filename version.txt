@@ -1,3 +1,6 @@
+le 20250225a2 :
+ - pcb en production mais pas testé.
+
 le 20250225a :
  - modif pcb
 
