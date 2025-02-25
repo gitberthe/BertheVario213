@@ -15,7 +15,7 @@ Projet d'alti vario gps parapente (avec gestion des TMA CTR..., et mode guidage 
 
 **Le pcb :**
 
-- en construction
+<img src="./Photos/04-pcb-1.11.png" width="500"/>
 
 
 mail: spinberthe@gmail.com
