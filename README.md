@@ -15,6 +15,6 @@ Projet d'alti vario gps parapente (avec gestion des TMA CTR..., et mode guidage 
 
 **Le pcb :**
 
-<img src="./Photos/04-pcb-1.11.png" width="200"/> <img src="./Photos/05-pcb-ok-1-mini.jpg" width="200"/> <img src="./Photos/06-pcb-ok-2-mini.jpg" width="200"/>
+<img src="./Photos/04-pcb-1.11.png" width="250"/> <img src="./Photos/05-pcb-ok-1-mini.jpg" width="250"/> <img src="./Photos/06-pcb-ok-2-mini.jpg" width="250"/>
 
 mail: spinberthe@gmail.com
