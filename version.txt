@@ -1,3 +1,6 @@
+le 20250319a :
+ - pcb ok. reste a faire le boitier et la mise au point logicielle.
+
 le 20250225c :
  - modif plantage si mauvais zonesper.txt.
 
