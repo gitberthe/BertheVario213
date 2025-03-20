@@ -4,7 +4,7 @@
 /// \brief Include global du projet
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 23/02/2025
+/// \date modification : 19/03/2025
 ///
 
 //////////////////
@@ -21,6 +21,18 @@
 #include <DFRobot_QMC5883.h>
 #include <ESPFMfGK.h>
 //#include <AsyncTCP.h>
+#ifndef NO_OTA
+ #include <WiFiClient.h>
+ #include <WebServer.h>
+ #include <HTTPClient.h>
+ #include "esp_tls.h"
+ #include "esp_http_client.h"
+ #include "mbedtls/ssl.h"
+ #include "ssl_client.h"
+ #include "mqtt_client.h"
+ #include "esp_tls.h"
+ #include "esp_sntp.h"
+#endif
 
 #include <math.h>
 #include <map>
@@ -44,11 +56,11 @@
 
 ////////////////
 // si mode debug
-#define G_DEBUG
-#define GPS_DEBUG
+//#define G_DEBUG
+//#define GPS_DEBUG
 //#define IGC_DEBUG
 //#define HTTP_DEBUG
-#define MS5611_DEBUG
+//#define MS5611_DEBUG
 //#define SOUND_DEBUG
 //#define SMALL_VZ_DEBUG
 //#define TMA_DEBUG
@@ -243,6 +255,16 @@ extern "C" {
 
 #include "GlobalVar/CNumTaskArr.h"
 #include "GlobalVar/CGlobalVar.h"
+
+////////////////////////////
+// fonctions et variables //
+////////////////////////////
+void WifiInitOta() ;
+void WifiOtaHandle() ;
+
+#ifndef NO_OTA
+ extern WebServer * g_pserver_ota ;
+#endif
 
 //////////////////////
 // variable globale //

@@ -4,7 +4,7 @@
 /// \brief Variable globale du projet
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #ifndef _GLOBALVAR_
@@ -36,6 +36,7 @@ public :
 
     bool m_ModeHttp ;                   ///< si mode http wifi
     bool m_ModeRandoVol ;               ///< si mode rando-vol
+    bool m_ModeHttpOta = false ;        ///< si mode http telechargement wifi
     bool m_BeepAttenteGVZone = true ;   ///< beep d'attente Gps/Vitesse/Zone
     bool m_StopLoop = false ;           ///< pour reboot
 
@@ -52,7 +53,7 @@ public :
     float m_AltiGps = 0. ;      ///< alti gps en metres
     int   m_AltitudeSolHgt = 0 ;    ///< altitude sol hgt
     int   m_CapGpsDeg = 359;     ///< cap gps en degres
-    float m_VitesseKmh = 99.9 ;   ///< vitesse gps en km/h
+    float m_VitesseKmh = 0. ;   ///< vitesse gps en km/h
     int   m_Annee = 1 ;         ///< Annee gps
     int   m_Mois = 1 ;          ///< Mois gps
     int   m_Jour = 1 ;          ///< Jour gps

@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 09/03/2024
-/// \date modification : 02/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #ifndef _BOUTONS_
@@ -44,6 +44,7 @@ public :
             { m_DelayPurgeMs = DelayMs ; } ;
     void BootEffectue()
             { m_Boot = false ; } ;
+    bool TestOta() ;
 
 private :
     void TestReboot() ;

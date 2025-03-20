@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 13/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #ifndef _SCREEN154_
@@ -35,6 +35,7 @@ public :
     EtatsAuto EcranTmaAll() ;
     EtatsAuto EcranTmaMod() ;
     EtatsAuto EcranSys() ;
+    EtatsAuto EcranOta() ;
     EtatsAuto EcranCfgFch() ;
     EtatsAuto EcranListeIgcFch() ;
     EtatsAuto EcranConfimeArchIgcFch() ;

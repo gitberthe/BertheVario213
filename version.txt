@@ -1,3 +1,8 @@
+le 20250320a :
+ - mode ota ok (firmware wifi).
+ - bug cap/vitesse gps trame VTG manquante.
+ - bug cap magnetique
+
 le 20250319a :
  - pcb ok. reste a faire le boitier et la mise au point logicielle.
 

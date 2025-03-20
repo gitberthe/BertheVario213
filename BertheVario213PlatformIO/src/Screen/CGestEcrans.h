@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 09/03/2024
-/// \date modification : 09/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #ifndef _GESTECRANS_
@@ -34,6 +34,7 @@ public :
         ECRAN_4_CfgFch ,
         ECRAN_5_TmaDessous ,
         ECRAN_6_Sys ,
+        ECRAN_7_Ota ,
         ERREUR ,
         FIN
         } ;
@@ -53,6 +54,7 @@ protected :
     virtual EtatsAuto EcranTmaAll() = 0 ;
     virtual EtatsAuto EcranTmaMod() = 0 ;
     virtual EtatsAuto EcranSys() = 0 ;
+    virtual EtatsAuto EcranOta() = 0 ;
     virtual EtatsAuto EcranCfgFch() = 0 ;
     virtual EtatsAuto EcranListeIgcFch() = 0 ;
     virtual EtatsAuto EcranConfimeArchIgcFch() = 0 ;

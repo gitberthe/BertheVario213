@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 24/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -298,7 +298,7 @@ CGestEcrans::EtatsAuto CScreen213::EcranVz()
 //CLocTermic LocTermic ;
 
 #ifdef G_DEBUG
-    Serial.println("Affichage de screen");
+    Serial.println("Affichage de Vz");
 #endif
 
 if ( IsPageChanged() )
@@ -1631,7 +1631,39 @@ if ( BoutonCentre() )
 if ( BoutonGaucheLong() )
     return ECRAN_5_TmaDessous ;
 
+if ( TestOta() )
+    return ECRAN_7_Ota ;
+
 return ECRAN_6_Sys ;
+}
+
+///////////////////////////////////////////////////////////////////////////////
+/// \brief Cette fonction permet de passer en telechargement firmware.
+/// \return l'etat suivant de l'automate
+CGestEcrans::EtatsAuto CScreen213::EcranOta()
+{
+#ifdef G_DEBUG
+ Serial.println( "EcranOta" ) ;
+#endif
+
+if ( IsPageChanged() )
+    {
+    display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
+    g_GlobalVar.RazBoutons() ;
+    display.setCursor(0,20);
+    display.setFont(&FreeSans9pt7b);
+    display.print("gauche court telechargement firmware!!!!\n\ncentre annuler." );
+    display.display(true) ;
+    return ECRAN_7_Ota ;
+    }
+
+if ( BoutonCentreTousAppui() )
+    return ECRAN_0_Vz ;
+
+if ( BoutonGauche() )
+    g_GlobalVar.m_ModeHttpOta = true ;
+
+return ECRAN_7_Ota ;
 }
 
 ///////////////////////////////////////////////////////////////////////////////

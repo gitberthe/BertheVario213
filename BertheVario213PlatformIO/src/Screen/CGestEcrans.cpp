@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 09/03/2024
-/// \date modification : 09/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -27,6 +27,7 @@ m_Automate[ECRAN_3b_TmaMod].m_pFunction = & CGestEcrans::EcranTmaMod ;
 m_Automate[ECRAN_4_CfgFch].m_pFunction  = & CGestEcrans::EcranCfgFch ;
 m_Automate[ECRAN_5_TmaDessous].m_pFunction= & CGestEcrans::EcranTmaDessous ;
 m_Automate[ECRAN_6_Sys].m_pFunction     = & CGestEcrans::EcranSys ;
+m_Automate[ECRAN_7_Ota].m_pFunction     = & CGestEcrans::EcranOta ;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

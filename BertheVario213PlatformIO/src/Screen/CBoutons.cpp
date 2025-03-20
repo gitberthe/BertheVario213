@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 09/03/2024
-/// \date modification : 21/02/2025
+/// \date modification : 19/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -192,6 +192,15 @@ m_BoutonDroit  = false ;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
+/// \brief Test telechargement. Bouton droit long seulement appuye
+bool CBoutons::TestOta()
+{
+if ( m_BoutonDroitLong && digitalRead(BUTTON_A_PIN) && digitalRead(BUTTON_B_PIN) )
+    return true ;
+return false ;
+}
+
+///////////////////////////////////////////////////////////////////////////////
 /// \brief Reboot.
 void CBoutons::TestReboot()
 {
@@ -231,9 +240,6 @@ while( g_GlobalVar.m_TaskArr[SCAN_BUTON_NUM_TASK].m_Run )
     if ( g_GlobalVar.m_DelayPurgeMs != 0 )
         {
         unsigned long time = millis() ;
-        pThis->m_BoutonGauche = false ;
-        pThis->m_BoutonCentre = false ;
-        pThis->m_BoutonDroit = false ;
         while( millis()-time < g_GlobalVar.m_DelayPurgeMs )
             {
             digitalRead(BUTTON_A_PIN) ;

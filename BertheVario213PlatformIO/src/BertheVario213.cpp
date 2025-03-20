@@ -4,10 +4,10 @@
 /// \brief Fichier principal du projet GNU-Vario de Berthe
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 24/02/2025
+/// \date modification : 20/03/2025
 ///
 
-char NumVer[] = "20250225c" ;
+char NumVer[] = "20250320a" ;
 
 // uncomment next line to use HSPI for EPD (and e.g VSPI for SD), e.g. with Waveshare ESP32 Driver Board
 //#define USE_HSPI_FOR_EPD
@@ -233,6 +233,7 @@ else
 }
 
 bool once = true ;
+bool once_ota = true ;
 
 /* AsyncClient* client = new AsyncClient;
 #define HOST "pdd.dprslt.fr"
@@ -286,9 +287,9 @@ void loop()
 return ;
 */
 
-g_GlobalVar.m_VitVertMS += 0.1 ;
+/*g_GlobalVar.m_VitVertMS += 0.1 ;
 if ( g_GlobalVar.m_VitVertMS >= 0.3 )
-    g_GlobalVar.m_VitVertMS *= -1 ;
+    g_GlobalVar.m_VitVertMS *= -1 ;*/
 
 
 // si boucle a ne plus faire
@@ -317,6 +318,22 @@ if ( g_GlobalVar.m_ModeRandoVol )
         }
     g_GlobalVar.AfficheRandoVol() ;
     delay( 200 ) ;
+    return ;
+    }
+
+//////////////////////////////////
+// si mode telechargement firmware
+if ( g_GlobalVar.m_ModeHttpOta )
+    {
+    if ( once_ota )
+        {
+        once_ota = false ;
+        WifiInitOta() ;
+        return ;
+        }
+
+    WifiOtaHandle() ;
+
     return ;
     }
 

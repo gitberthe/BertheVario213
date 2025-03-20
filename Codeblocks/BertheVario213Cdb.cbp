@@ -87,6 +87,7 @@
 		<Unit filename="../BertheVario213PlatformIO/src/Gps/CTrame.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/MS5611/CMS5611Pression.cpp" />
 		<Unit filename="../BertheVario213PlatformIO/src/MS5611/CMS5611Pression.h" />
+		<Unit filename="../BertheVario213PlatformIO/src/Ota/WifiOta.cpp" />
 		<Unit filename="../BertheVario213PlatformIO/src/Perfmon/esp32_perfmon.h" />
 		<Unit filename="../BertheVario213PlatformIO/src/Perfmon/perfmon.cpp" />
 		<Unit filename="../BertheVario213PlatformIO/src/QMC5883L/CQMC5883Mag.cpp" />
