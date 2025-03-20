@@ -1,3 +1,7 @@
+le 20250320d :
+ - correction bug bloquage mode ota (firmware wifi).
+ - a faire recadrage des caracteres dans les pages.
+
 le 20250320c :
  - quelques modifications de documentation.
 

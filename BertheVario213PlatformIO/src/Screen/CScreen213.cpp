@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 19/03/2025
+/// \date modification : 20/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -30,11 +30,6 @@
 #include <Fonts/FreeMonoBold12pt7b.h>
 #include <Fonts/FreeMonoBold18pt7b.h>
 #include <Fonts/FreeMonoBold24pt7b.h>
-
-#include <Fonts/FreeSans9pt7b.h>
-#include <Fonts/FreeSans12pt7b.h>
-#include <Fonts/FreeSans18pt7b.h>
-#include <Fonts/FreeSans24pt7b.h>
 
 // note 16.11.2019: the compiler may exclude code based on constant if statements (display.epd2.panel == constant),
 //                  therefore bitmaps may get optimized out by the linker
@@ -180,7 +175,7 @@ void CScreen213::AfficheConnectWifi()
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // connect to wifi
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(10, 100);
 display.print("Connecting to\n  Wifi");
 
@@ -194,7 +189,7 @@ void CScreen213::AfficheCalibreMag()
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // voltage
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(0, 75);
 display.print("Calibre magnitude (8)");
 
@@ -209,7 +204,7 @@ display.setTextColor( GxEPD_BLACK );
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
 // ip adresse
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(0, 75);
 display.print("http://");
 display.print(IpAdress);
@@ -255,7 +250,7 @@ void CScreen213::AfficheBoutons()
 {
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
-display.setFont(&FreeSans18pt7b);
+display.setFont(&FreeMonoBold18pt7b);
 display.setCursor(10, 55);
 display.print("Berthe\n  Vario\n   213");
 
@@ -451,7 +446,7 @@ uint16_t tbw, tbh;
 // nom de zone aerienne ou termique/terrain
 if ( g_GlobalVar.m_Hgt2Agl.m_ErreurFichier )
     {
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(0, 15);
     display.print("** ERREUR  **\nFICHIER HGT");
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -459,7 +454,7 @@ if ( g_GlobalVar.m_Hgt2Agl.m_ErreurFichier )
     }
 else if ( DansUneZone == ZONE_DEDANS )
     {
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(0, 15);
     display.print(NomZoneDessous.c_str());
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -471,7 +466,7 @@ else if ( DansUneZone == ZONE_DEDANS )
     }
 else if ( LimiteZone == ZONE_LIMITE_ALTI )
     {
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(0, 15);
     display.print(NomZoneDessous.c_str());
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -479,7 +474,7 @@ else if ( LimiteZone == ZONE_LIMITE_ALTI )
     }
 else if ( LimiteZone == ZONE_LIMITE_FRONTIERE )
     {
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(0, 15);
     display.print(NomZoneLimite.c_str());
     if ( g_GlobalVar.m_BeepAttenteGVZone )
@@ -499,10 +494,10 @@ else
     const int y1 = 16 ;
     const int y2 = 45 ;
 
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(0, y1);
     display.print(TmpCharNomSite);
-    display.setFont(&FreeSans12pt7b);
+    display.setFont(&FreeMonoBold12pt7b);
     display.setCursor(96, y1);
     display.print(TmpCharFinesseSite);
 
@@ -514,31 +509,31 @@ else
     // altitude frontiere
     if ( AltFront > 500 )
         {
-        display.setFont(&FreeSans12pt7b);
+        display.setFont(&FreeMonoBold12pt7b);
         //            "500"
         display.print("   ");
-        display.setFont(&FreeSans9pt7b);
+        display.setFont(&FreeMonoBold9pt7b);
         //            "A "
         display.print("  ");
         }
     else
         {
-        display.setFont(&FreeSans12pt7b);
+        display.setFont(&FreeMonoBold12pt7b);
         sprintf( TmpCharFront , "%3d", AltFront ) ;
         display.print(TmpCharFront);
-        display.setFont(&FreeSans9pt7b);
+        display.setFont(&FreeMonoBold9pt7b);
         display.print("A ");
         }
     // distance frontiere < DISTANCE_PROCHE_XY
     if ( DistFront > 999 )
         {
-        display.setFont(&FreeSans12pt7b);
+        display.setFont(&FreeMonoBold12pt7b);
         //            "999SE"
         display.print("     ");
         }
     else
         {
-        display.setFont(&FreeSans12pt7b);
+        display.setFont(&FreeMonoBold12pt7b);
         sprintf( TmpCharFront , "%3d%s", DistFront , TmpCharCap ) ;
         display.print(TmpCharFront);
         }
@@ -548,7 +543,7 @@ else
 /////////////
 // bandeaux 2
 const int y2 = 80 ;
-display.setFont(&FreeSans18pt7b);
+display.setFont(&FreeMonoBold18pt7b);
 // duree du vol
 display.setCursor(30, y2);
 display.print(TmpCharDV);
@@ -564,15 +559,15 @@ else
 // bandeaux 3
 const int y3 = 115 ;
 // derive
-display.setFont(&FreeSans18pt7b);
+display.setFont(&FreeMonoBold18pt7b);
 display.setCursor(0, y3);
 display.print(TmpCharAngleDerive);
 
 // cap
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(LARGEUR_213/2 , y3-5);
 display.print(TmpCharCap);
-display.setFont(&FreeSans12pt7b);
+display.setFont(&FreeMonoBold12pt7b);
 display.print(TmpCharNomCap);
 
 /////////////
@@ -585,7 +580,7 @@ if ( SigneNeg )
 else
     xv = 18 ;
 
-display.setFont(&FreeSans24pt7b);
+display.setFont(&FreeMonoBold24pt7b);
 display.setCursor(xv, 170);
 display.print(TmpCharVz);
 
@@ -606,17 +601,17 @@ if ( SigneNeg )
 
 // vitesse sol/hauteur sol
 display.setCursor(20, 215 );
-display.setFont(&FreeSans18pt7b);
+display.setFont(&FreeMonoBold18pt7b);
 if ( AffichageHauteurSol )
     {
     display.print(TmpCharVitSol);
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.print("k");
     }
 else
     {
     display.print(TmpCharHauteurSol);
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.print("m");
     }
 
@@ -624,10 +619,10 @@ else
 // bandeaux 6
 
 // alti
-display.setFont(&FreeSans18pt7b);
+display.setFont(&FreeMonoBold18pt7b);
 display.setCursor(20, 250 );
 display.print(TmpCharAlt);
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.print("m");
 
 // affichage nouvelle page
@@ -689,7 +684,7 @@ if ( IsPageChanged() )
 if ( g_GlobalVar.m_HistoVol.m_HistoDir.size() == 0 )
     {
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     // message
     display.setCursor(0, 20);
     display.print("0 histo");
@@ -727,7 +722,7 @@ char TmpCharTV[20] ;
 sprintf( TmpCharTV , "% 4.1f'", g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_TempsDeVol ) ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 // nom fch igc
 display.setCursor(0, y);
 display.print(TmpCharAffVol);
@@ -874,7 +869,7 @@ else
     }
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 // Mod
 display.setCursor(0, 20);
 display.print(TmpMod) ;
@@ -1042,7 +1037,7 @@ if ( NumTmaCtr >= 0 && NumTmaCtr < VecAffZones.size() )
     }
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 // num tma/ctr
 display.setCursor(0, 15);
 display.print(NumTmaCtr);
@@ -1204,14 +1199,14 @@ sprintf( TmpTitre , "%2d B. Cen." , g_GlobalVar.m_ZonesAerAll.GetNbZones() ) ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 // titre
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.setCursor( 0, 20 );
 display.print( TmpTitre ) ;
 
 // zones active
 long xcol = 0 ;
 long yligne = 15 ;
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 for ( int iz = 0 ; iz < VecZonesMod.size() ; iz++ )
     {
     if ( !VecZonesMod[iz]->m_DansFchActivation )
@@ -1293,7 +1288,7 @@ for ( int ifch = 0 ; ifch < VecNomIgc.size() ; ifch++ )
 
 char TmpChar[25] ;
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 
 // total igc
 y_cursor = 15 ;
@@ -1354,7 +1349,7 @@ char TmpChar[] = "\n\n   Confirme\n   Archivage\n     Igc\n  Bouton GD" ;
 
 // titre
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 display.setCursor( 0, 20 );
 display.print( TmpChar ) ;
 display.display(true);
@@ -1414,7 +1409,7 @@ std::string NomZone = "" ;
 
 if ( IsPageChanged() )
     {
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     g_GlobalVar.RazBoutons() ;
     NbAppButGD = 0 ;
     }
@@ -1462,7 +1457,7 @@ if ( BoutonGaucheLong() )
 // demande confirmation enregistrement point
 if ( NbAppButGD == 1 )
     {
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     display.setCursor(0,70);
     display.print( "Confirmation enregistrement point gps GD" );
@@ -1515,7 +1510,7 @@ if ( NbAppButGD >= 2  )
 
 // affichage zone et coordonnees
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 // nom zone
 display.setCursor(0,20);
 display.print( "Tma Dessus:\n" );
@@ -1557,7 +1552,7 @@ sprintf( TmpCharCM , "Cap m :   %3dd", (int)g_GlobalVar.m_QMC5883Mag.GetCapDegre
 
 // alti baro
 char TmpAltiBaro[30] ;
-sprintf( TmpAltiBaro , "Al bar:  %4.0fm", g_GlobalVar.m_MS5611Press.GetAltiMetres() ) ;
+sprintf( TmpAltiBaro , "Al bar :  %4.0fm", g_GlobalVar.m_MS5611Press.GetAltiMetres() ) ;
 
 // temperature
 char TmpCharTemp[30] ;
@@ -1573,10 +1568,10 @@ g_GlobalVar.m_MutexCore.PrendreMutex() ;
 g_GlobalVar.m_MutexCore.RelacherMutex() ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeSans9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 
 // date et heure
-display.setCursor(12, 15);
+display.setCursor(4, 15);
 display.print(TmpCharDate) ;
 
 // alti baro
@@ -1593,19 +1588,19 @@ display.print(TmpCharTemp);
 
 // core 0 usage
 display.setCursor(0, 98);
-display.print("core 0:    ");
+display.print("core 0 :    ");
 display.print(cpu0) ;
 display.print("%");
 
 // core 1 usage
 display.setCursor(0,118);
-display.print("core 1:    ");
+display.print("core 1 :    ");
 display.print(cpu1) ;
 display.print("%");
 
 // memory
 display.setCursor(0,138);
-sprintf( TmpCharMem , "f mem :%6db", (int) esp_get_free_heap_size() ) ;
+sprintf( TmpCharMem , "f m. :%6db", (int) esp_get_free_heap_size() ) ;
 display.print(TmpCharMem);
 
 // batterie
@@ -1632,7 +1627,7 @@ if ( BoutonCentre() )
 if ( BoutonGaucheLong() )
     return ECRAN_5_TmaDessous ;
 
-if ( TestOta() )
+if ( TestOta() && !g_GlobalVar.m_FinDeVol.IsInFlight() )
     return ECRAN_7_Ota ;
 
 return ECRAN_6_Sys ;
@@ -1652,11 +1647,14 @@ if ( IsPageChanged() )
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     g_GlobalVar.RazBoutons() ;
     display.setCursor(0,20);
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.print("gauche court telechargement firmware!!!!\n\ncentre annuler." );
     display.display(true) ;
     return ECRAN_7_Ota ;
     }
+
+// bien laisser de delay car bloque les boutons autrement
+delay( 5 ) ;
 
 if ( BoutonCentreTousAppui() )
     return ECRAN_0_Vz ;
@@ -1679,7 +1677,7 @@ if ( g_GlobalVar.m_EtatRando == CRandoVol::InitRando )
 
     // raz ecran
     display.setFullWindow() ;
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(20, 75);
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     // message
@@ -1766,7 +1764,7 @@ if ( NbMenuScreen++ < 8 && g_GlobalVar.m_EtatRando == CRandoVol::AfficheMenu )
 
     // affichage nom de piste
     display.setCursor(0,20);
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
 
     // nom trace des traces proches
@@ -1883,7 +1881,7 @@ if ( NbInfo-- >= 0 )
     char TmpCharMem[35] ;
     sprintf( TmpCharMem ,  "f mem: %6db", (int) esp_get_free_heap_size() ) ;
 
-    display.setFont(&FreeSans9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
 
     // date et heure
     display.setCursor(0, 15);

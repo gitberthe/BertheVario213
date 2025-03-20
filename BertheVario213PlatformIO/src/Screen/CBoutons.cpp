@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 09/03/2024
-/// \date modification : 19/03/2025
+/// \date modification : 20/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -208,7 +208,7 @@ void CBoutons::TestReboot()
 if ( !digitalRead(BUTTON_A_PIN) && digitalRead(BUTTON_B_PIN) && !digitalRead(BUTTON_C_PIN) )
     {
     // pas de reboot en vol certain
-    if ( g_GlobalVar.m_FinDeVol.IsFlightLocked() )
+    if ( g_GlobalVar.m_FinDeVol.IsInFlight() )
         return ;
     Serial.println( "reboot button") ;
     CGlobalVar::Reboot() ;
@@ -224,14 +224,14 @@ CBoutons * pThis = (CBoutons*) param ;
 // a 100 hz
 while( g_GlobalVar.m_TaskArr[SCAN_BUTON_NUM_TASK].m_Run )
     {
-    delay( 1 ) ;
+    delay( 5 ) ;
 
     // delait d'attente
     if ( g_GlobalVar.m_DelayAttenteMs != 0 )
         {
         unsigned long time = millis() ;
-        while( millis()-time < g_GlobalVar.m_DelayAttenteMs )
-            delay( 2 ) ;
+        while( (int)(millis()-time) < (int)g_GlobalVar.m_DelayAttenteMs )
+            delay( 5 ) ;
         g_GlobalVar.m_DelayAttenteMs = 0 ;
         continue ;
         }
@@ -240,7 +240,7 @@ while( g_GlobalVar.m_TaskArr[SCAN_BUTON_NUM_TASK].m_Run )
     if ( g_GlobalVar.m_DelayPurgeMs != 0 )
         {
         unsigned long time = millis() ;
-        while( millis()-time < g_GlobalVar.m_DelayPurgeMs )
+        while( (int)(millis()-time) < (int)g_GlobalVar.m_DelayPurgeMs )
             {
             digitalRead(BUTTON_A_PIN) ;
             digitalRead(BUTTON_B_PIN) ;
@@ -269,6 +269,7 @@ while( g_GlobalVar.m_TaskArr[SCAN_BUTON_NUM_TASK].m_Run )
         // mesure temps
         while ( !digitalRead(BUTTON_A_PIN) )
             {
+            delay( 1 ) ;
             g_GlobalVar.TestReboot() ;
             if( (millis()-DebutAppui) >= DELAY_APPUI_LONG )
                 break ;
@@ -320,6 +321,7 @@ while( g_GlobalVar.m_TaskArr[SCAN_BUTON_NUM_TASK].m_Run )
         // mesure temps
         while ( !digitalRead(BUTTON_B_PIN) )
             {
+            delay( 1 ) ;
             g_GlobalVar.TestReboot() ;
             if( (millis()-DebutAppui) >= DELAY_APPUI_LONG )
                 break ;
@@ -358,6 +360,7 @@ while( g_GlobalVar.m_TaskArr[SCAN_BUTON_NUM_TASK].m_Run )
         // mesure temps
         while ( !digitalRead(BUTTON_C_PIN) )
             {
+            delay( 1 ) ;
             g_GlobalVar.TestReboot() ;
             if( (millis()-DebutAppui) >= DELAY_APPUI_LONG )
                 break ;
