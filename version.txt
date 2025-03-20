@@ -1,3 +1,7 @@
+le 20250320b :
+ - correction bug cap magnetique.
+ - ajout vitesse/cap trame RMC Gps (si vitesse faible)
+
 le 20250320a :
  - mode ota ok (firmware wifi).
  - bug cap/vitesse gps trame VTG manquante.

@@ -4,7 +4,8 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 17/02/2025
+/// \date 20/03/2025 : certains gps n'ont pas la trame VTG, donc utilisation de RMC
+/// \date modification : 20/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -289,8 +290,25 @@ else if ( !strcmp(pChar,"--RMC" ) )
     #endif
     while ( (pChar=strtok(NULL,Separ)) != NULL )
         {
+        // vitesse en noeuds
+        if ( ipar == 6 )
+            {
+            if ( *pChar != ' ' )
+                {
+                float VitesseKmh = atof( pChar ) * UnMileEnMetres / 1000. ;
+                g_GlobalVar.m_VitesseKmh = VitesseKmh ;
+                }
+            }
+        // cap
+        else if ( ipar == 7 )
+            {
+            // si cap bien present
+            if ( *pChar != ' ' )
+                g_GlobalVar.m_CapGpsDeg = (int)atof( pChar ) ;
+
+            }
         // date
-        if ( ipar == 8 )
+        else if ( ipar == 8 )
             {
             int jour = 0 ;
             jour += (pChar[0]-'0') * 10 ;   // 10 ene de jour

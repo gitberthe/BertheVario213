@@ -4,7 +4,7 @@
 /// \brief Capteur magnetique.
 ///
 /// \date creation     : 04/10/2024
-/// \date modification : 17/02/2025
+/// \date modification : 20/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -81,7 +81,7 @@ sVector_t mag = compass.readRaw();
 float x = (((float)mag.XAxis)-m_ZeroX) * m_GainX ;
 float y = (((float)mag.YAxis)-m_ZeroY) * m_GainY ;
 
-float Cap = atan2f(x,y) * 180. / T_PI ;
+float Cap = -atan2f(x,y) * 180. / T_PI ;
 
 if ( Cap < 0. )
     Cap += 360. ;

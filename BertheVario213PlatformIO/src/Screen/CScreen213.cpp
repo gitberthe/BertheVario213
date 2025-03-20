@@ -396,6 +396,7 @@ else
 
 // cap
 int Cap = g_GlobalVar.m_CapGpsDeg ;
+//int Cap = g_GlobalVar.m_QMC5883Mag.GetCapDegres() ;
 char TmpCharCap[15] ;
 char TmpCharNomCap[] = "  " ;
 GetCapChar( Cap , TmpCharNomCap ) ;
