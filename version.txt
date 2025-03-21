@@ -1,3 +1,6 @@
+le 20250321c :
+ - recadrage caracteres toutes pages.
+ 
 le 20250321b :
  - recadrage caracteres page Sys.
 

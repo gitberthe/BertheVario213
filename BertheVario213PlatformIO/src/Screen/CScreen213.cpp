@@ -698,7 +698,7 @@ if ( IsPageChanged() )
 if ( g_GlobalVar.m_HistoVol.m_HistoDir.size() == 0 )
     {
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-    display.setFont(&FreeMono9pt7b);
+    display.setFont(&FreeMonoBold9pt7b);
     // message
     display.setCursor(0, 20);
     display.print("0 histo");
@@ -737,7 +737,7 @@ char TmpCharTV[20] ;
 sprintf( TmpCharTV , "% 4.1f'", g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_TempsDeVol ) ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMono9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 // nom fch igc
 display.setCursor(0, y);
 display.print(TmpCharAffVol);
@@ -873,7 +873,7 @@ if ( IsPageChanged() )
 if ( iChamps == -1 )
     {
     strcpy( TmpMod , "" ) ;
-    Name = " Editeur Cfg" ;
+    Name = "Editeur Cfg" ;
     g_GlobalVar.m_Config.EcritureFichier() ;
     g_GlobalVar.m_Config.ConstructVect() ;
     }
@@ -1063,7 +1063,7 @@ CZoneAer * pZone = VecAffZones[NumTmaCtr] ;
 display.print(pZone->m_pNomAff);
 // activation
 display.setCursor(0, 60);
-display.print( "Active:");
+display.print( "Activ:");
 if ( pZone->m_Activee )
     display.print( "1");
 else
@@ -1074,35 +1074,33 @@ else
     display.print( " const");
 // altibasse
 display.setCursor(0, 80);
-display.print( "A bas : ");
+display.print( "A bas: ");
 display.print( pZone->m_AltiBasse );
 
 // periode
 display.setCursor(0,100);
-display.print( "p.de. : ");
+display.print( "p.de. :");
 display.print( (pZone->HavePeriod()) ? pZone->m_pDerogFfvl->m_PeriodeDebutJour : -1 );
-display.print( "-" );
 display.print( (pZone->HavePeriod()) ? pZone->m_pDerogFfvl->m_PeriodeDebutMois : -1 );
 display.setCursor(0,120);
-display.print( "p.fi. : ");
+display.print( "p.fi. :");
 display.print( (pZone->HavePeriod()) ? pZone->m_pDerogFfvl->m_PeriodeFinJour : -1 );
-display.print( "-" );
 display.print( (pZone->HavePeriod()) ? pZone->m_pDerogFfvl->m_PeriodeFinMois : -1 );
 
 // altisemaine
 display.setCursor(0,140);
-display.print( "A sem. : ");
+display.print( "A sem.: ");
 display.print( (pZone->HavePeriod()) ? pZone->m_pDerogFfvl->m_AltiBassePeriodeSemaine : -1 );
 // altiweekend
 display.setCursor(0,160);
-display.print( "A week : ");
+display.print( "A week: ");
 display.print( (pZone->HavePeriod()) ? pZone->m_pDerogFfvl->m_AltiBassePeriodeWeekEnd : -1 );
 
 // si zone protegee
 if ( pZone->IsProtect() )
     {
     display.setCursor(0,180);
-    display.print( "hau sol: ");
+    display.print( "h sol: ");
     display.print( pZone->GetHauteurSolZoneProtect() );
     }
 
@@ -1220,29 +1218,25 @@ display.print( TmpTitre ) ;
 
 // zones active
 long xcol = 0 ;
-long yligne = 15 ;
+long yligne = 11 ;
 display.setFont(&FreeMonoBold9pt7b);
 for ( int iz = 0 ; iz < VecZonesMod.size() ; iz++ )
     {
     if ( !VecZonesMod[iz]->m_DansFchActivation )
         continue ;
-    display.setCursor(0+xcol, 40 + yligne );
+    display.setCursor(0+xcol, 30 + yligne );
 
     if ( VecZonesMod[iz]->m_Activee )
         display.print( VecZonesMod[iz]->m_pNomAff ) ;
     else
-        {
-        char TmpChar[50] ;
-        sprintf( TmpChar , "-%s" ,  VecZonesMod[iz]->m_pNomAff ) ;
-        TmpChar[9] = 0 ;
-        display.print( TmpChar  ) ;
-        }
+        continue ;
+
     yligne += 17 ;
-    if ( iz == 10 )
+    /*if ( iz == 10 )
         {
         xcol = 55 ;
         yligne = 15 ;
-        }
+        }*/
     }
 display.display(true);
 
@@ -1307,14 +1301,19 @@ display.setFont(&FreeMonoBold9pt7b);
 
 // total igc
 y_cursor = 15 ;
-sprintf( TmpChar , "total igc:%03dm", ((int)TotalMin) ) ;
+sprintf( TmpChar , "total:%03dm", ((int)TotalMin) ) ;
 display.setCursor( 0, y_cursor );
 display.print( TmpChar ) ;
 
 int ivec = 0 ;
+char NomFchIgc[15] ;
 for ( ; ivec < VecNomIgc.size() ; ivec++ )
     {
-    sprintf( TmpChar , "%s %03d", (const char*)VecNomIgc[ivec].c_str() , ((int)VecTempsIgc[ivec]) ) ;
+    strcpy( NomFchIgc , VecNomIgc[ivec].c_str() ) ;
+    NomFchIgc[9] = 0 ;
+    const char * pChar = NomFchIgc ;
+    pChar += 3 ;
+    sprintf( TmpChar , "%s  %03d", pChar , ((int)VecTempsIgc[ivec]) ) ;
     y_cursor += 16 ;
     display.setCursor( 0, y_cursor );
     display.print( TmpChar ) ;
@@ -1530,9 +1529,9 @@ display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(0,20);
 display.print( "Tma Dessus:\n" );
 display.println( NomZone.c_str() );
-display.print( "lat: " ) ;
+display.print( "lat:" ) ;
 display.println( g_GlobalVar.m_TerrainPosCur.m_Lat , 5 ) ;
-display.print( "lon:  " ) ;
+display.print( "lon:" ) ;
 display.println( g_GlobalVar.m_TerrainPosCur.m_Lon , 5 ) ;
 display.print( "alt:" ) ;
 display.println( g_GlobalVar.m_TerrainPosCur.m_AltiBaro , 0 ) ;
@@ -1548,9 +1547,12 @@ CGestEcrans::EtatsAuto CScreen213::EcranSys()
 {
 // date
 char TmpCharDate[35] ;
+int Annee = g_GlobalVar.m_Annee - 2000 ;
+if ( Annee < 0 )
+    Annee = 0 ;
 int secondes_date = g_GlobalVar.m_HeureSec ;
 sprintf( TmpCharDate ,"%02d%02d%02d-%02d%02d" ,
-    (int)(g_GlobalVar.m_Annee - 2000) ,
+    Annee ,
     g_GlobalVar.m_Mois ,
     g_GlobalVar.m_Jour ,
     (int) (secondes_date/3600) ,   // heure
@@ -1583,7 +1585,7 @@ g_GlobalVar.m_MutexCore.PrendreMutex() ;
 g_GlobalVar.m_MutexCore.RelacherMutex() ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMono9pt7b);
+display.setFont(&FreeMonoBold9pt7b);
 
 // date et heure
 display.setCursor(0, 15);
