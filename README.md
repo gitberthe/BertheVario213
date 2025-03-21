@@ -7,7 +7,7 @@ Projet d'alti vario gps parapente (avec gestion des TMA CTR..., et mode guidage 
 
 **La carte avec son pcb :**
 
-<img src="./Photos/05-pcb-ok-1-mini.jpg" width="250"/> <img src="./Photos/06-pcb-ok-2-mini.jpg" width="250"/> <img src="./Photos/07-bv213-sans-boitier-1.jpg" width="250"/>
+<img src="./Photos/05-pcb-ok-1-mini.jpg" width="250"/> <img src="./Photos/06-pcb-ok-2-mini.jpg" width="250"/> <img src="./Photos/07-bv213-sans-boitier-3.jpg" width="250"/>
 
 **Le schema electrique :**
 
