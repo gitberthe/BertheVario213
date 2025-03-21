@@ -31,6 +31,11 @@
 #include <Fonts/FreeMonoBold18pt7b.h>
 #include <Fonts/FreeMonoBold24pt7b.h>
 
+#include <Fonts/FreeMono9pt7b.h> // 12 18
+#include <Fonts/FreeMono12pt7b.h>
+#include <Fonts/FreeMono18pt7b.h>
+#include <Fonts/FreeMono24pt7b.h>
+
 // note 16.11.2019: the compiler may exclude code based on constant if statements (display.epd2.panel == constant),
 //                  therefore bitmaps may get optimized out by the linker
 
@@ -429,7 +434,7 @@ display.drawLine( LARGEUR_213/2 +1, yh , LARGEUR_213/2 +1 , 87 , GxEPD_BLACK ) ;
 display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
 yh = 180 ;
 display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
-yh = 220 ;
+yh = 217 ;
 display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
 
 // affichage valeur de VZ
@@ -471,8 +476,8 @@ else if ( LimiteZone == ZONE_LIMITE_FRONTIERE )
 else
     {
     int yh = 22 ;
-    display.drawLine(  5 , yh , 50 , yh , GxEPD_BLACK ) ;
-    display.drawLine( 60 , yh , 110 , yh , GxEPD_BLACK ) ;
+    //display.drawLine(  5 , yh , 50 , yh , GxEPD_BLACK ) ;
+    //display.drawLine( 60 , yh , 110 , yh , GxEPD_BLACK ) ;
     yh = 50 ;
     display.drawLine( 0 , yh , LARGEUR_213 , yh , GxEPD_BLACK ) ;
 
@@ -490,10 +495,8 @@ else
     display.print(TmpCharFinesseSite);
 
     // dist/alt/cap frontiere zone
-    display.setCursor(4, y2);
+    display.setCursor(7, y2);
     char TmpCharFront[25] ;
-    char TmpCharCap[25] ;
-    GetCapChar( CapFrontDeg , TmpCharCap ) ;
     // altitude frontiere
     if ( AltFront > 500 )
         {
@@ -522,7 +525,7 @@ else
     else
         {
         display.setFont(&FreeMonoBold12pt7b);
-        sprintf( TmpCharFront , "%3d%s", DistFront , TmpCharCap ) ;
+        sprintf( TmpCharFront , "%3d", DistFront ) ;
         display.print(TmpCharFront);
         }
 
@@ -610,7 +613,7 @@ else
 // bandeaux 5
 
 // vitesse sol/hauteur sol
-display.setCursor(15, 215 );
+display.setCursor(15, 210 );
 display.setFont(&FreeMonoBold18pt7b);
 if ( AffichageHauteurSol )
     {
@@ -630,7 +633,7 @@ else
 
 // alti
 display.setFont(&FreeMonoBold18pt7b);
-display.setCursor(20, 250 );
+display.setCursor(15, 245 );
 display.print(TmpCharAlt);
 display.setFont(&FreeMonoBold9pt7b);
 display.print("m");
@@ -677,7 +680,8 @@ CGestEcrans::EtatsAuto CScreen213::EcranHisto()
 {
 char * pCharNomFch = NULL ;
 static int ivol = 0 ;
-int y = 20 ;
+int y = 10 ;
+const int y2 = 65 ;
 
 // lecture des histo
 g_GlobalVar.m_HistoVol.LectureFichiers() ;
@@ -694,7 +698,7 @@ if ( IsPageChanged() )
 if ( g_GlobalVar.m_HistoVol.m_HistoDir.size() == 0 )
     {
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-    display.setFont(&FreeMonoBold9pt7b);
+    display.setFont(&FreeMono9pt7b);
     // message
     display.setCursor(0, 20);
     display.print("0 histo");
@@ -706,8 +710,9 @@ if ( g_GlobalVar.m_HistoVol.m_HistoDir.size() == 0 )
 char NomFchIgc[20] ;
 strcpy( NomFchIgc , g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_NomIgc ) ;
 pCharNomFch = strtok( NomFchIgc , "/." ) ;
+strcat( pCharNomFch , "igc" ) ;
 char TmpCharAffVol[40] ;
-sprintf( TmpCharAffVol , "%d/%d %s", ivol+1 , g_GlobalVar.m_HistoVol.m_HistoDir.size() , pCharNomFch ) ;
+sprintf( TmpCharAffVol , "%d/%d\n%s", ivol+1 , g_GlobalVar.m_HistoVol.m_HistoDir.size() , pCharNomFch ) ;
 
 char TmpCharAltiDeco[20] ;
 sprintf( TmpCharAltiDeco , "%4dm", (int)g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_ZDeco ) ;
@@ -732,58 +737,58 @@ char TmpCharTV[20] ;
 sprintf( TmpCharTV , "% 4.1f'", g_GlobalVar.m_HistoVol.m_HistoDir[ivol].m_TempsDeVol ) ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold9pt7b);
+display.setFont(&FreeMono9pt7b);
 // nom fch igc
 display.setCursor(0, y);
 display.print(TmpCharAffVol);
 
 // alti decollage
-y += 40 ;
+y += 50 ;
 display.setCursor(0, y);
-display.print("Z deco:");
-display.setCursor(110, y);
+display.print("Z dec:");
+display.setCursor(y2, y);
 display.print(TmpCharAltiDeco);
 
 // alti max
 y += 20 ;
 display.setCursor(0, y);
-display.print("Z max :");
-display.setCursor(110, y);
+display.print("Z max:");
+display.setCursor(y2, y);
 display.print(TmpCharAltiMax);
 
 // Vz max
 y += 20 ;
 display.setCursor(0, y);
-display.print("Vz max:");
-display.setCursor(110, y);
+display.print("Vz ma:");
+display.setCursor(y2, y);
 display.print(TmpCharVzMax);
 
 // Vz min
 y += 20 ;
 display.setCursor(0, y);
-display.print("Vz min:");
-display.setCursor(110, y);
+display.print("Vz mi:");
+display.setCursor(y2, y);
 display.print(TmpCharVzMin);
 
 // distance max
 y += 20 ;
 display.setCursor(0, y);
-display.print("Dist. :");
-display.setCursor(110, y);
+display.print("Dist.:");
+display.setCursor(y2, y);
 display.print(TmpCharDistMax);
 
 // Vs max
 y += 20 ;
 display.setCursor(0, y);
-display.print("Vs max:");
-display.setCursor(110, y);
+display.print("Vs ma:");
+display.setCursor(y2, y);
 display.print(TmpCharVsMax);
 
 // Dure vol
 y += 20 ;
 display.setCursor(0,y);
-display.print("t vol :");
-display.setCursor(110, y);
+display.print("t vol:");
+display.setCursor(y2, y);
 display.print(TmpCharTV);
 display.display(true);
 
@@ -1544,7 +1549,7 @@ CGestEcrans::EtatsAuto CScreen213::EcranSys()
 // date
 char TmpCharDate[35] ;
 int secondes_date = g_GlobalVar.m_HeureSec ;
-sprintf( TmpCharDate ,"%02d%02d%02d-%02d:%02d" ,
+sprintf( TmpCharDate ,"%02d%02d%02d-%02d%02d" ,
     (int)(g_GlobalVar.m_Annee - 2000) ,
     g_GlobalVar.m_Mois ,
     g_GlobalVar.m_Jour ,
@@ -1558,15 +1563,15 @@ sprintf( TmpCharVB , "%1.2fv", g_GlobalVar.GetVoltage() ) ;
 
 // cap magnetique
 char TmpCharCM[30] ;
-sprintf( TmpCharCM , "Cap m :   %3dd", (int)g_GlobalVar.m_QMC5883Mag.GetCapDegres() ) ;
+sprintf( TmpCharCM ,   "Cap m: %3dd", (int)g_GlobalVar.m_QMC5883Mag.GetCapDegres() ) ;
 
 // alti baro
 char TmpAltiBaro[30] ;
-sprintf( TmpAltiBaro , "Al bar :  %4.0fm", g_GlobalVar.m_MS5611Press.GetAltiMetres() ) ;
+sprintf( TmpAltiBaro , "Al ba:%4.0fm", g_GlobalVar.m_MS5611Press.GetAltiMetres() ) ;
 
 // temperature
 char TmpCharTemp[30] ;
-sprintf( TmpCharTemp , "Temp  :  %4.1fd", g_GlobalVar.m_MS5611Press.GetTemperatureDegres() ) ;
+sprintf( TmpCharTemp , "Temp :%4.1fd", g_GlobalVar.m_MS5611Press.GetTemperatureDegres() ) ;
 
 // memoire
 char TmpCharMem[30] ;
@@ -1578,10 +1583,10 @@ g_GlobalVar.m_MutexCore.PrendreMutex() ;
 g_GlobalVar.m_MutexCore.RelacherMutex() ;
 
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-display.setFont(&FreeMonoBold9pt7b);
+display.setFont(&FreeMono9pt7b);
 
 // date et heure
-display.setCursor(4, 15);
+display.setCursor(0, 15);
 display.print(TmpCharDate) ;
 
 // alti baro
@@ -1598,29 +1603,29 @@ display.print(TmpCharTemp);
 
 // core 0 usage
 display.setCursor(0, 98);
-display.print("core 0 :    ");
+display.print("core0:  ");
 display.print(cpu0) ;
 display.print("%");
 
 // core 1 usage
 display.setCursor(0,118);
-display.print("core 1 :    ");
+display.print("core1:  ");
 display.print(cpu1) ;
 display.print("%");
 
 // memory
 display.setCursor(0,138);
-sprintf( TmpCharMem , "f m. :%6db", (int) esp_get_free_heap_size() ) ;
+sprintf( TmpCharMem , "fm.:%6db", (int) esp_get_free_heap_size() ) ;
 display.print(TmpCharMem);
 
 // batterie
 display.setCursor(0,158);
-display.print("V bat :  ");
+display.print("V bat:");
 display.print(TmpCharVB);
 
 // firmware
 display.setCursor(0, 195);
-display.print("fir:");
+display.print("f:");
 display.print(NumVer);
 
 display.display(true) ;
