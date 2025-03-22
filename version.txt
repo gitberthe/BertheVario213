@@ -1,3 +1,5 @@
+il reste un bug sur le cap de la zone aerirenne proche
+
 le 20250322a :
  - emmission message xc_track determiné uniquement par #define XC_TRACK 
  - son vario toujours determiné par [xc_track] == 0 
