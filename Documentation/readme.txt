@@ -1,5 +1,2 @@
-Documentation utilisateur en cours.
-Voir les documentations du GnuVario/BertheVario ou 
-du BertheVarioTac qui sont du meme genre. En terme 
-de description de pages, utilisation des boutons et
-fichiers sur la carte sd.
+Documentation utilisateur pour description de l'ihm, des boutonsen et des fichiers de la carte sd.
+Documentation concepteur pour description succinte de l'environnement lociciel et du telechargement firmware.
