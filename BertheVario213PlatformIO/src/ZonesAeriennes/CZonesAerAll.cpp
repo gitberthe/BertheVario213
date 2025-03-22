@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 23/03/2024
-/// \date modification : 25/02/2025
+/// \date modification : 22/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -40,7 +40,7 @@ if ( g_GlobalVar.m_Annee < 2010 )
     return ;
 
 SetDateTU( g_GlobalVar.m_Annee, g_GlobalVar.m_Mois, g_GlobalVar.m_Jour, 0. ) ;
-bool WeekEnd = IsWeekEnd() ;
+m_IsWeekEnd = IsWeekEnd() ;
 float JDCur = GetJD_TU() ;
 
 /*Serial.print( g_GlobalVar.m_Annee ) ;
@@ -51,6 +51,9 @@ Serial.println( "CZonesAerAll::SetDatePeriode()" ) ;*/
 for ( int iz = 0 ; iz < m_NbZones ; iz++ )
     {
     CZoneAer & ZoneAer = *m_ZonesArr[iz] ;
+
+    // type de zone
+    ZoneAer.SetTypeZone() ;
 
     // si zone sans periode
     if ( ZoneAer.m_pDerogFfvl == NULL )
@@ -67,7 +70,7 @@ Serial.println( "CZonesAerAll::SetDatePeriode()" ) ;*/
     if ( (DateDebut.GetJD_TU() <= JDCur) && (JDCur <= DateDefin.GetJD_TU()) )
         {
         // positionnement alti fonction periode
-        if ( WeekEnd )
+        if ( m_IsWeekEnd )
             ZoneAer.m_pDerogFfvl->m_AltiAPrendreEnCompte = ALTI_PERIODE_WEEKEND ;
         else
             ZoneAer.m_pDerogFfvl->m_AltiAPrendreEnCompte = ALTI_PERIODE_SEMAINE ;
@@ -447,18 +450,10 @@ if ( PeriodeFin != "-" && PeriodeFin != "" )
     AltiWeekEndStr = strtok( & AltiWeekEnd[0] , "-" ) ;
     }
 
-
+// pour toutes les zones comparaison du nom
 for ( long iz = 0 ; iz < m_NbZones ; iz++ )
     {
     CZoneAer * pZone = m_ZonesArr[iz] ;
-
-    // si pas de zone
-    if ( pZone == NULL )
-        {
-        Serial.println("zone aerienne non trouvée periode") ;
-        *buff = 0 ;
-        return ;
-        }
 
     // si pas bon nom de zone
     if ( strcmp( pZone->m_pNomAff , NomOri.c_str() ) )
@@ -802,7 +797,7 @@ for ( long iz = 0 ; iz < m_NbZones ; iz++ )
     Zone.UnCompressZone() ;
 
     // dedans la surface
-    bool IsInArea = DansLeRayon && CPolygone::IsIn( Zone.m_PolygoneArr , Zone.m_NbPts , PtsEnCours ) ;
+    bool IsInArea = CPolygone::IsIn( Zone.m_PolygoneArr , Zone.m_NbPts , PtsEnCours ) ;
 
     // liberation des float
     Zone.FreeFloat() ;
@@ -849,7 +844,7 @@ else
 
         // si dedans
         if ( (g_GlobalVar.m_TerrainPosCur.m_AltiBaro > m_Plafond4Valid) &&
-             (g_GlobalVar.m_TerrainPosCur.m_AltiBaro > (g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone(CZoneAer::ZoneCorent))) )
+             (g_GlobalVar.m_TerrainPosCur.m_AltiBaro > (g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone())) )
             {
             sprintf( TmpChar , "In %s al:%4dm" , pZoneIn->m_pNomAff , m_Plafond4Valid ) ;
             RetNbrIn = ZONE_DEDANS ;
@@ -870,15 +865,48 @@ else
         Serial.print( "," ) ;
         Serial.println( g_GlobalVar.m_Config.m_AltiMargin ) ;*/
         if ( ((g_GlobalVar.m_TerrainPosCur.m_AltiBaro+g_GlobalVar.m_Config.m_AltiMargin) > m_Plafond4Valid) &&
-             ((g_GlobalVar.m_TerrainPosCur.m_AltiBaro+g_GlobalVar.m_Config.m_AltiMargin) > (g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone(CZoneAer::ZoneCorent))) )
+             ((g_GlobalVar.m_TerrainPosCur.m_AltiBaro+g_GlobalVar.m_Config.m_AltiMargin) > (g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone())) )
             {
             sprintf( TmpChar , "Al %s al:%4dm" , pZoneIn->m_pNomAff , m_Plafond4Valid ) ;
             RetNbrLimite = ZONE_LIMITE_ALTI ;
             RetStrLimite = TmpChar ;
             }
         }
-    ////////////////
-    // si pas corent
+    ///////////////
+    // si saint yan
+    else if ( pZoneIn->GetTypeZone() == CZoneAer::ZoneStYan )
+        {
+        m_Plafond4Valid = PlafondZone ;
+
+        // si l'on est en pas en week end
+        if ( ! m_IsWeekEnd )
+            {
+            // si dedans
+            if ( g_GlobalVar.m_TerrainPosCur.m_AltiBaro > (g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone()) )
+                {
+                sprintf( TmpChar , "In %s al:%4dm" , pZoneIn->m_pNomAff , m_Plafond4Valid ) ;
+                RetNbrIn = ZONE_DEDANS ;
+                RetStrIn = TmpChar ;
+                }
+            // dessous
+            else
+                {
+                sprintf( TmpChar , "Be %s al:%4dm" , pZoneIn->m_pNomAff , m_Plafond4Valid ) ;
+                RetNbrIn = ZONE_DESSOUS ;
+                RetStrIn = TmpChar ;
+                }
+
+            // si limite alti
+            if ( (g_GlobalVar.m_TerrainPosCur.m_AltiBaro+g_GlobalVar.m_Config.m_AltiMargin) > (g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone()) )
+                {
+                sprintf( TmpChar , "Al %s al:%4dm" , pZoneIn->m_pNomAff , m_Plafond4Valid ) ;
+                RetNbrLimite = ZONE_LIMITE_ALTI ;
+                RetStrLimite = TmpChar ;
+                }
+            }
+        }
+    ////////////////////
+    // si zone generique
     else
         {
         // si dedans
@@ -957,9 +985,17 @@ if ( pZoneIn != NULL )
     // si corent prise en compte de l'altitude sol
     if ( pZoneIn->GetTypeZone() == CZoneAer::ZoneCorent )
         {
-        int AltitudeSolPlus300 = g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone(CZoneAer::ZoneCorent) ;
+        int AltitudeSolPlus300 = g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone() ;
         int DistAltSol = AltitudeSolPlus300 - g_GlobalVar.m_TerrainPosCur.m_AltiBaro ;
         m_DistAltCurZone = std::max( DistAltSol , DistAltCurZone ) ;
+        }
+    //////////////////////////////////////////////
+    // si st yan prise en compte de l'altitude sol
+    else if ( pZoneIn->GetTypeZone() == CZoneAer::ZoneStYan )
+        {
+        int AltitudeSolPlus610 = g_GlobalVar.m_AltitudeSolHgt + pZoneIn->GetAltiSolZone() ;
+        int DistAltSol = AltitudeSolPlus610 - g_GlobalVar.m_TerrainPosCur.m_AltiBaro ;
+        m_DistAltCurZone = DistAltSol ;
         }
     else
         m_DistAltCurZone = DistAltCurZone ;
@@ -993,9 +1029,15 @@ for ( int iz = 0 ; iz < m_NbZones; iz++ )
     bool IsNearFrontAlti = false ;
     if ( pZoneXY->IsProtect() )
         IsNearFrontAlti = g_GlobalVar.m_TerrainPosCur.m_AltiBaro <= (PlafondZoneProtegee+g_GlobalVar.m_Config.m_AltiMargin) ;
-        //continue ;
     else
+        {
+        // zone proche generique
         IsNearFrontAlti = g_GlobalVar.m_TerrainPosCur.m_AltiBaro >= (pZoneXY->GetAltiBasse()-g_GlobalVar.m_Config.m_AltiMargin) ;
+        // si saint sandoux proche CTR Corent alors prise en compte hauteur sol
+        if ( pZoneXY->GetTypeZone() == CZoneAer::ZoneCorent )
+            // altitude majoree marge alti > altitude sol plus 300m
+            IsNearFrontAlti &= (g_GlobalVar.m_TerrainPosCur.m_AltiBaro+g_GlobalVar.m_Config.m_AltiMargin) > (g_GlobalVar.m_AltitudeSolHgt + pZoneXY->GetAltiSolZone())  ;
+        }
 
     // si a l'altitude de croisement
     if ( IsNearFrontAlti )

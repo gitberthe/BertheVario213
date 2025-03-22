@@ -1,3 +1,11 @@
+le 20250322a :
+ - emmission message xc_track determiné uniquement par #define XC_TRACK 
+ - son vario toujours determiné par [xc_track] == 0 
+ - declenchement debut de vol par 2 Vz minimales consecutives. 
+ - prise en compte de la hauteur sol pour pre-alarme frontiere XY à Saint-Sandoux.
+ - meilleur prise en compte zone st-yan
+ - ajout du projet CompZoneAerienne
+  
 le 20250321c :
  - recadrage caracteres toutes pages.
  

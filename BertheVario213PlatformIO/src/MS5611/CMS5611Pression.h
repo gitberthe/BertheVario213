@@ -4,7 +4,7 @@
 /// \brief Fichier du capteur de pression
 ///
 /// \date creation     : 07/03/2024
-/// \date modification : 17/02/2025
+/// \date modification : 22/03/2025
 ///
 
 #ifndef _CMS5611_
@@ -50,13 +50,13 @@ public :
 
     float GetAltiMetres() override ;
     float GetTemperatureDegres() override ;
+    float GetPressureMb() ;
     float GetPressionhPa() const override ;
 
     void LancerTacheCalculVzCapMag() ;
 
 private :
     void  Read() ;
-    float GetPressureMb() ;
     float GetAltiPressionCapteurMetres() ;
 
     float CalcAltitude(float pressure_mb_x100 , float seaLevelPressure = 101325 ) ;

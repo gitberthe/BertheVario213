@@ -1359,7 +1359,7 @@ return ECRAN_2a_ListeIgc ;
 CGestEcrans::EtatsAuto CScreen213::EcranConfimeArchIgcFch()
 {
 // titre
-char TmpChar[] = "\n\n   Confirme\n   Archivage\n     Igc\n  Bouton GD" ;
+char TmpChar[] = "\n\n Confirme\n Archivage\n    Igc\n Bouton GD" ;
 
 // titre
 display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h

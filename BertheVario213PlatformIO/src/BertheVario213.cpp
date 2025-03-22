@@ -4,10 +4,10 @@
 /// \brief Fichier principal du projet GNU-Vario de Berthe
 ///
 /// \date creation     : 02/03/2024
-/// \date modification : 21/03/2025
+/// \date modification : 22/03/2025
 ///
 
-char NumVer[] = "20250321c" ;
+char NumVer[] = "20250322a" ;
 
 // uncomment next line to use HSPI for EPD (and e.g VSPI for SD), e.g. with Waveshare ESP32 Driver Board
 //#define USE_HSPI_FOR_EPD
@@ -112,10 +112,9 @@ if ( BoutonCentreAppuye )
     g_GlobalVar.m_Config.LectureFichier() ;
 
     #ifdef XC_TRACK
-    // desactive ble
-    g_GlobalVar.m_Config.m_xc_track = false ;
-    esp_bt_controller_disable();
-    esp_bt_controller_deinit();
+     // desactive ble
+     esp_bt_controller_disable();
+     esp_bt_controller_deinit();
     #endif
 
     // mode ftp pour loop
@@ -192,7 +191,6 @@ if ( BoutonDroitAppuye )
     {
     #ifdef XC_TRACK
      // desactive ble
-     g_GlobalVar.m_Config.m_xc_track = false ;
      esp_bt_controller_disable();
      esp_bt_controller_deinit();
     #endif
@@ -218,13 +216,10 @@ perfmon_start() ;
 
 #ifdef XC_TRACK
 // blue tooth
-if ( g_GlobalVar.m_Config.m_xc_track )
     g_GlobalVar.m_BleXct.Init( BLE_NAME ) ;
-else
-    {
-    esp_bt_controller_disable();
-    esp_bt_controller_deinit();
-    }
+//#else
+//    esp_bt_controller_disable();
+//    esp_bt_controller_deinit();
 #endif
 
 #ifdef G_DEBUG
