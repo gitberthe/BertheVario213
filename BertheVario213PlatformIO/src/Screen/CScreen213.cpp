@@ -4,7 +4,7 @@
 /// \brief
 ///
 /// \date creation     : 03/03/2024
-/// \date modification : 21/03/2025
+/// \date modification : 22/03/2025
 ///
 
 #include "../BertheVario213.h"
@@ -485,7 +485,7 @@ else
     // bandeaux 1
     // terrain finesse
     const int y1 = 16 ;
-    const int y2 = 45 ;
+    const int y2 = 43 ;
 
     display.setFont(&FreeMonoBold9pt7b);
     display.setCursor(0, y1);
@@ -495,7 +495,7 @@ else
     display.print(TmpCharFinesseSite);
 
     // dist/alt/cap frontiere zone
-    display.setCursor(7, y2);
+    display.setCursor(0, y2);
     char TmpCharFront[25] ;
     // altitude frontiere
     if ( AltFront > 500 )
@@ -513,9 +513,11 @@ else
         sprintf( TmpCharFront , "%3d", AltFront ) ;
         display.print(TmpCharFront);
         display.setFont(&FreeMonoBold9pt7b);
-        display.print("A ");
+        display.print("A");
         }
+
     // distance frontiere < DISTANCE_PROCHE_XY
+    display.setCursor(57, y2);
     if ( DistFront > 999 )
         {
         display.setFont(&FreeMonoBold12pt7b);
@@ -524,11 +526,16 @@ else
         }
     else
         {
+        // distance frontiere
         display.setFont(&FreeMonoBold12pt7b);
         sprintf( TmpCharFront , "%3d", DistFront ) ;
         display.print(TmpCharFront);
+        // cap frontiere
+        char TmpCharCapFront[5] ;
+        GetCapChar( CapFrontDeg , TmpCharCapFront ) ;
+        display.setFont(&FreeMonoBold9pt7b);
+        display.print(TmpCharCapFront);
         }
-
     }
 
 /////////////
@@ -1529,7 +1536,7 @@ display.setFont(&FreeMonoBold9pt7b);
 display.setCursor(0,20);
 display.print( "Tma Dessus:\n" );
 display.println( NomZone.c_str() );
-display.print( "lat:" ) ;
+display.print( "\nlat:" ) ;
 display.println( g_GlobalVar.m_TerrainPosCur.m_Lat , 5 ) ;
 display.print( "lon:" ) ;
 display.println( g_GlobalVar.m_TerrainPosCur.m_Lon , 5 ) ;
@@ -1695,10 +1702,10 @@ if ( g_GlobalVar.m_EtatRando == CRandoVol::InitRando )
     // raz ecran
     display.setFullWindow() ;
     display.setFont(&FreeMonoBold9pt7b);
-    display.setCursor(20, 75);
+    display.setCursor(0, 75);
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
     // message
-    display.print("Acquisition\n      Gps");
+    display.print("Acquisition\n    Gps");
     display.display(true);
 
     #ifdef DEBUG_RANDO_VOl
@@ -1742,7 +1749,7 @@ if ( g_GlobalVar.m_EtatRando == CRandoVol::InitAfficheMenu )
     // message
     display.setCursor(5, 75);
     display.fillRect(0,0, LARGEUR_213, HAUTEUR_213, GxEPD_WHITE ); // x y w h
-    display.print("Lecture *.gpx");
+    display.print("  Lecture\n   *.gpx");
     display.display(true);
     // lecture fichiers
     g_GlobalVar.LireFichiersGpx() ;
@@ -1757,7 +1764,7 @@ static CFileGpx * pFileGpx = NULL ;
 static int NbMenuScreen = 0 ;
 static int selection = 0 ;
 static int glissant = 0 ;
-const int NbAffLigneMenu = 10 ;
+const int NbAffLigneMenu = 13 ;
 if ( NbMenuScreen++ < 8 && g_GlobalVar.m_EtatRando == CRandoVol::AfficheMenu )
     {
     // defilement du menu
@@ -1792,6 +1799,7 @@ if ( NbMenuScreen++ < 8 && g_GlobalVar.m_EtatRando == CRandoVol::AfficheMenu )
             sprintf(TmpChar,">%s",g_GlobalVar.GetTrackName(it)) ;
         else
             sprintf(TmpChar," %s",g_GlobalVar.GetTrackName(it)) ;
+        TmpChar[11] = 0 ;
         display.println( TmpChar );
         }
     display.display(true);
@@ -1865,8 +1873,11 @@ if ( NbInfo-- >= 0 )
     // date
     char TmpCharDate[35] ;
     int secondes_date = g_GlobalVar.m_HeureSec ;
-    sprintf( TmpCharDate ,"%04d%02d%02d-%02d:%02d" ,
-            (int)(g_GlobalVar.m_Annee) ,
+    int Annee = g_GlobalVar.m_Annee - 2000 ;
+    if ( Annee < 0 )
+        Annee  = 0 ;
+    sprintf( TmpCharDate ,"%02d%02d%02d-%02d%02d" ,
+            Annee ,
             g_GlobalVar.m_Mois ,
             g_GlobalVar.m_Jour ,
             (int) (secondes_date/3600) ,   // heure
@@ -1875,28 +1886,28 @@ if ( NbInfo-- >= 0 )
 
     // altitude restante
     char TmpAltitudeRest[20] ;
-    sprintf( TmpAltitudeRest , "Alt r:   %4.0fm", AltitudeRest) ;
+    sprintf( TmpAltitudeRest , "Al r: %4.0fm", AltitudeRest) ;
     // distance restante
     char TmpDistanceRest[20] ;
-    sprintf( TmpDistanceRest , "Dis r:  %5.0fm", DistanceRest) ;
+    sprintf( TmpDistanceRest , "Di r:%5.0fm", DistanceRest) ;
     // altitude fait
     char TmpAltitudeFait[20] ;
-    sprintf( TmpAltitudeFait , "Alt f:   %4.0fm", AltitudeFait) ;
+    sprintf( TmpAltitudeFait , "Al f: %4.0fm", AltitudeFait) ;
     // distance restante
     char TmpDistanceFait[20] ;
-    sprintf( TmpDistanceFait , "Dis f:  %5.0fm", DistanceFait) ;
+    sprintf( TmpDistanceFait , "Di f:%5.0fm", DistanceFait) ;
 
     // temperature
     char TmpCharTemp[30] ;
-    sprintf( TmpCharTemp , "Temp :   %4.1fd", g_GlobalVar.m_MS5611Press.GetTemperatureDegres() ) ;
+    sprintf( TmpCharTemp , "Temp: %4.1fd", g_GlobalVar.m_MS5611Press.GetTemperatureDegres() ) ;
 
     // v batterie
     char TmpCharVB[20] ;
-    sprintf( TmpCharVB ,   "V bat:   %1.2fv", g_GlobalVar.GetVoltage() ) ;
+    sprintf( TmpCharVB ,   "V bat:%1.2fv", g_GlobalVar.GetVoltage() ) ;
 
     // memoire
     char TmpCharMem[35] ;
-    sprintf( TmpCharMem ,  "f mem: %6db", (int) esp_get_free_heap_size() ) ;
+    sprintf( TmpCharMem ,  "fm :%6db", (int) esp_get_free_heap_size() ) ;
 
     display.setFont(&FreeMonoBold9pt7b);
 
@@ -1965,10 +1976,10 @@ else
             y2 = y2p ;
             }
 
-        x1 += 100 ;
-        y1 += 100 ;
-        x2 += 100 ;
-        y2 += 100 ;
+        x1 += LARGEUR_213/2 ;
+        y1 += HAUTEUR_213/2 ;
+        x2 += LARGEUR_213/2 ;
+        y2 += HAUTEUR_213/2 ;
 
         // ligne de la trace
         display.drawLine( x1 , y1 , x2 , y2 , GxEPD_BLACK ) ;
@@ -1997,28 +2008,28 @@ else
             y1 = y1p ;
             }
 
-        x1 += 100 ;
-        y1 += 100 ;
+        x1 += LARGEUR_213/2 ;
+        y1 += HAUTEUR_213/2 ;
 
         display.drawCircle( x1 , y1 , 1 , GxEPD_BLACK ) ;
         display.drawCircle( x1 , y1 , 3 , GxEPD_BLACK ) ;
         }
 
     // position courante
-    display.drawCircle( 100 , 100 , 4 , GxEPD_BLACK ) ;
-    display.drawCircle( 100 , 100 , 3 , GxEPD_BLACK ) ;
+    display.drawCircle( LARGEUR_213/2 , HAUTEUR_213/2 , 4 , GxEPD_BLACK ) ;
+    display.drawCircle( LARGEUR_213/2 , HAUTEUR_213/2 , 3 , GxEPD_BLACK ) ;
 
     if ( !g_GlobalVar.m_OrientationCapGps )
         {
         // dessin du cap magnetique nord
-        int xnm = -50 * cosf( g_GlobalVar.m_QMC5883Mag.GetCapDegres() * PI / 180. - PI/2. ) + 100 ;
-        int ynm =  50 * sinf( g_GlobalVar.m_QMC5883Mag.GetCapDegres() * PI / 180. - PI/2. ) + 100 ;
-        display.drawLine( 100 , 100 , xnm , ynm , GxEPD_BLACK ) ;
+        int xnm = -50 * cosf( g_GlobalVar.m_QMC5883Mag.GetCapDegres() * PI / 180. - PI/2. ) + LARGEUR_213/2 ;
+        int ynm =  50 * sinf( g_GlobalVar.m_QMC5883Mag.GetCapDegres() * PI / 180. - PI/2. ) + HAUTEUR_213/2 ;
+        display.drawLine( LARGEUR_213/2 , HAUTEUR_213/2 , xnm , ynm , GxEPD_BLACK ) ;
 
         // dessin du cap gps
-        int xng = -30 * cosf( -g_GlobalVar.m_CapGpsDeg * PI / 180. + PI + PI/2. ) + 100 ;
-        int yng =  30 * sinf( -g_GlobalVar.m_CapGpsDeg * PI / 180. + PI + PI/2. ) + 100 ;
-        display.drawLine( 100 , 100 , xng , yng , GxEPD_BLACK ) ;
+        int xng = -30 * cosf( -g_GlobalVar.m_CapGpsDeg * PI / 180. + PI + PI/2. ) + LARGEUR_213/2 ;
+        int yng =  30 * sinf( -g_GlobalVar.m_CapGpsDeg * PI / 180. + PI + PI/2. ) + HAUTEUR_213/2 ;
+        display.drawLine( LARGEUR_213/2 , HAUTEUR_213/2 , xng , yng , GxEPD_BLACK ) ;
         }
 
     // nom de la trace
@@ -2026,13 +2037,13 @@ else
     display.setCursor(0,10);
     display.print( pFileGpx->m_TrackName.c_str() ) ;
     // zoom + zoom-
-    display.setFont(&FreeMonoBold12pt7b);
-    display.setCursor(0,190);
+    const int yb = 240 ;
+    display.setCursor(0,yb);
     display.print( "z-" ) ;
-    display.setCursor(170,190);
+    display.setCursor(100,yb);
     display.print( "z+" ) ;
     // echelle
-    display.setCursor(60,190);
+    display.setCursor(27,yb);
     display.print( EchelleMetre ) ;
     display.print( "m2" ) ;
 

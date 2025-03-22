@@ -1,6 +1,6 @@
-le 20250322a2 :
- il reste un bug sur le cap de la zone aerirenne proche
- verification ihm mode randonnee
+le 20250322b :
+ - affichage altitude restante/distance/cap de la zone aerienne proche ok.
+ - ihm mode randonnee ok.
 
 le 20250322a :
  - emmission message xc_track determiné uniquement par #define XC_TRACK 
