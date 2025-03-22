@@ -17,4 +17,8 @@ Projet d'alti vario gps parapente (avec gestion des TMA CTR..., et mode guidage 
 
 <img src="./Photos/04-pcb-1.11.png" width="250"/>
 
+**La  randonnée :**
+
+<img src="./Photos/10-bv213-rando.jpg" width="250"/>
+
 mail: spinberthe@gmail.com
